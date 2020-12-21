@@ -50,7 +50,7 @@ end
 -- REMOVE UR PLATE SLIPPY IF ITS SLIPPY
 if game.Workspace.Tiles:findFirstChild(game.Players.LocalPlayer.Name) then
 if not game.Workspace.Tiles[game.Players.LocalPlayer.Name].Material == "Plastic" then
-game.Workspace.Tiles[game.Players.LocalPlayer.Name].Material == "Plastic"
+game.Workspace.Tiles[game.Players.LocalPlayer.Name].Material = "Plastic"
 end
 game.Workspace.Tiles[game.Players.LocalPlayer.Name].Velocity = Vector3.new(0,0,0)
 end
