@@ -3,7 +3,6 @@ local lavaCandidates = workspace.LavaArea:getChildren()
 for i=1,#lavaCandidates do
 if lavaCandidates[i].ClassName == "Part" then
 if lavaCandidates[i].CanCollide == false then
-print(lavaCandidates[i].Name)
 local a = Instance.new("Part", lavaCandidates[i].Parent)
 a.Size = lavaCandidates[i].Size
 a.CFrame = lavaCandidates[i].CFrame + Vector3.new(0, 2, 0)
