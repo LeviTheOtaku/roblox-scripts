@@ -57,6 +57,7 @@ game.Workspace.Tiles[game.Players.LocalPlayer.Name].Material = "Plastic"
 end
 game.Workspace.Tiles[game.Players.LocalPlayer.Name].Velocity = Vector3.new(0,0,0)
 end
+end
 
 -- REMOVE CLOUD
 if workspace:findFirstChild("Tiles") then
