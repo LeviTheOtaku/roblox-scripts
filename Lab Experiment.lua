@@ -40,13 +40,17 @@ game.Players.LocalPlayer.Character.IsHopping:remove()
 end
 
 -- SHOW UR PLATE IF IT GETS SET TO INVISIBLE
+if workspace:findFirstChild("Tiles") then
 if game.Workspace.Tiles:findFirstChild(game.Players.LocalPlayer.Name) then
 if game.Workspace.Tiles[game.Players.LocalPlayer.Name].Transparency == 1 then
 game.Workspace.Tiles[game.Players.LocalPlayer.Name].Transparency = 0.5
 end
 end
+end
 
 -- REMOVE UR PLATE SLIPPY IF ITS SLIPPY
+   
+if workspace:findFirstChild("Tiles") then
 if game.Workspace.Tiles:findFirstChild(game.Players.LocalPlayer.Name) then
 if not game.Workspace.Tiles[game.Players.LocalPlayer.Name].Material == "Plastic" then
 game.Workspace.Tiles[game.Players.LocalPlayer.Name].Material = "Plastic"
@@ -55,9 +59,11 @@ game.Workspace.Tiles[game.Players.LocalPlayer.Name].Velocity = Vector3.new(0,0,0
 end
 
 -- REMOVE CLOUD
+if workspace:findFirstChild("Tiles") then
 if game.Workspace.Tiles:findFirstChild(game.Players.LocalPlayer.Name) then
 if game.Workspace.Tiles[game.Players.LocalPlayer.Name]:findFirstChild("Cloud") then
 game.Workspace.Tiles[game.Players.LocalPlayer.Name].Cloud:remove()
+end
 end
 end
 
@@ -96,6 +102,7 @@ if workspace.CurrentCamera:findFirstChild("boxha") then
 workspace.CurrentCamera.boxha:remove()
 end
 if a ~= nil then
+pcall(function()
 local a = Instance.new("BoxHandleAdornment", workspace.CurrentCamera)
 a.Name = "boxha"
 a.Size = Vector3.new(highestobj.Size.X+0.1, highestobj.Size.Y+0.1, highestobj.Size.Z+0.1)
@@ -104,6 +111,7 @@ a.ZIndex = 10
 a.Transparency = 0.75
 a.Color3 = Color3.fromRGB(0,255,0)
 a.Adornee = highestobj
+end)
 end
 end
 end
