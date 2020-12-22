@@ -10,12 +10,8 @@ local player = game.Players.LocalPlayer
 local lavaCandidates = workspace.LavaArea:getChildren()
 for i=1,#lavaCandidates do
 if lavaCandidates[i].ClassName == "Part" then
-if lavaCandidates[i].CanCollide == false then
-local a = Instance.new("Part", lavaCandidates[i].Parent)
-a.Size = lavaCandidates[i].Size
-a.CFrame = lavaCandidates[i].CFrame + Vector3.new(0, 2, 0)
-a.Material = Enum.Material.Neon
-a.Color = Color3.new(0, 0, 1)
+if lavaCandidates[i]:findFirstChild("TouchInterest") then
+lavaCandidates[i]:findFirstChild("TouchInterest"):remove()                                     
 end
 end
 end
