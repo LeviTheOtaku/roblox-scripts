@@ -1,3 +1,11 @@
+spawn(function()
+while true do
+wait(0.5)
+
+local playerObj = workspace:findFirstChild(game.Players.LocalPlayer.Name)
+local player = game.Players.LocalPlayer
+
+       
 -- NON DEADLY LAVA
 local lavaCandidates = workspace.LavaArea:getChildren()
 for i=1,#lavaCandidates do
@@ -11,14 +19,7 @@ a.Color = Color3.new(0, 0, 1)
 end
 end
 end
-
-local playerObj = workspace:findFirstChild(game.Players.LocalPlayer.Name)
-local player = game.Players.LocalPlayer
-
-
-spawn(function()
-while true do
-wait(0.5)
+         
 -- FIX CAMERA IF FOV OR FIRST PERSON FORCED
 if player.CameraMode ~= "Classic" then
 player.CameraMode = "Classic"
