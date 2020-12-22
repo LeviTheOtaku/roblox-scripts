@@ -217,3 +217,87 @@ end
 end
 end)
 end)
+
+
+spawn(function() -- AUTO-WIN GAMES AND AUTO JOIN
+local Gui = Instance.new("ScreenGui")
+local MainFrame = Instance.new("Frame")
+local Deco = Instance.new("TextLabel")
+local ToggleButton = Instance.new("TextButton")
+
+Gui.Name = "Gui"
+Gui.Parent = game.CoreGui
+
+MainFrame.Name = "MainFrame"
+MainFrame.Parent = Gui
+MainFrame.Active = true
+MainFrame.BackgroundColor3 = Color3.new(0.45098, 0, 0.694118)
+MainFrame.BorderSizePixel = 0
+MainFrame.Draggable = true
+MainFrame.Position = UDim2.new(0.25, 0, 0.25, 0)
+MainFrame.Size = UDim2.new(0.100000001, 0, 0.075000003, 0)
+
+Deco.Name = "Deco"
+Deco.Parent = MainFrame
+Deco.BackgroundColor3 = Color3.new(1, 1, 1)
+Deco.BackgroundTransparency = 0.89999997615814
+Deco.BorderSizePixel = 0
+Deco.Size = UDim2.new(1, 0, 0.300000012, 0)
+Deco.Font = Enum.Font.SourceSansLight
+Deco.Text = "Auto win games"
+Deco.TextColor3 = Color3.new(1, 1, 1)
+Deco.TextScaled = true
+Deco.TextSize = 14
+Deco.TextWrapped = true
+
+ToggleButton.Name = "ToggleButton"
+ToggleButton.Parent = MainFrame
+ToggleButton.BackgroundColor3 = Color3.new(0, 0, 0)
+ToggleButton.BorderSizePixel = 0
+ToggleButton.Position = UDim2.new(0.0500000007, 0, 0.400000006, 0)
+ToggleButton.Size = UDim2.new(0.899999976, 0, 0.5, 0)
+ToggleButton.Font = Enum.Font.SourceSansLight
+ToggleButton.Text = "Off"
+ToggleButton.TextColor3 = Color3.new(1, 0, 0)
+ToggleButton.TextScaled = true
+ToggleButton.TextSize = 14
+ToggleButton.TextWrapped = true
+
+local on = false
+ToggleButton.MouseButton1Down:connect(function()
+if on == false then
+on = true
+ToggleButton.Text = "On"
+ToggleButton.TextColor3 = Color3.fromRGB(0,255,0)
+
+else
+on = false
+ToggleButton.Text = "Off"
+ToggleButton.TextColor3 = Color3.fromRGB(255,0,0)
+
+end
+end)
+
+
+game:GetService("RunService").RenderStepped:Connect(function()
+wait()
+if on == true then
+if game.Players.LocalPlayer.Character:findFirstChild("HumanoidRootPart") then
+if game.Players.LocalPlayer.TeamColor == BrickColor.new("White") then 
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(54.528595, 33.4999886, 144.216599)
+elseif game.Players.LocalPlayer.TeamColor == BrickColor.new("Really red") then 
+if game.Players.LocalPlayer.Character:findFirstChild("HumanoidRootPart") then          
+local a = Instance.new("Part", workspace)
+a.Size = Vector3.new(10, 1, 10)
+a.CFrame = CFrame.new(-114.977, 178, 1.605, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+a.Anchored = true
+
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame =  CFrame.new(-114.977, 182, 1.605, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+wait()
+end
+end
+end
+end
+end)
+end)
+
