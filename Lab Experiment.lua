@@ -289,7 +289,7 @@ a.CFrame = CFrame.new(-114.977, 178, 1.605, 1, 0, 0, 0, 1, 0, 0, 0, 1)
 a.Anchored = true
 game:getService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame =  CFrame.new(-114.977, 182, 1.605, 1, 0, 0, 0, 1, 0, 0, 0, 1)
 
-local players = game:GetService("Players")
+local players = game:GetService("Players"):getChildren()
 local endgame = true      
 for i=1,#players do
 if players[i] ~= game:GetService("Players").LocalPlayer and players[i].TeamColor == BrickColor.new("Really red") then
