@@ -278,17 +278,26 @@ end)
 game:GetService("RunService").RenderStepped:Connect(function()
 wait()
 if on == true then
-if game.Players.LocalPlayer.Character:findFirstChild("HumanoidRootPart") then
-if game.Players.LocalPlayer.TeamColor == BrickColor.new("White") then 
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(54.528595, 33.4999886, 144.216599)
-elseif game.Players.LocalPlayer.TeamColor == BrickColor.new("Really red") then 
-if game.Players.LocalPlayer.Character:findFirstChild("HumanoidRootPart") then          
+if game:getService("Players").LocalPlayer.Character:findFirstChild("HumanoidRootPart") then
+if game:getService("Players").LocalPlayer.TeamColor == BrickColor.new("White") then 
+game:getService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(54.528595, 33.4999886, 144.216599)
+elseif game:getService("Players").LocalPlayer.TeamColor == BrickColor.new("Really red") then
+if game:getService("Players").LocalPlayer.Character:findFirstChild("HumanoidRootPart") then          
 local a = Instance.new("Part", workspace)
 a.Size = Vector3.new(10, 1, 10)
 a.CFrame = CFrame.new(-114.977, 178, 1.605, 1, 0, 0, 0, 1, 0, 0, 0, 1)
 a.Anchored = true
+game:getService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame =  CFrame.new(-114.977, 182, 1.605, 1, 0, 0, 0, 1, 0, 0, 0, 1)
 
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame =  CFrame.new(-114.977, 182, 1.605, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+local players = game:GetService("Players")
+local endgame = true      
+for i=1,#players do
+if players[i] ~= game:GetService("Players").LocalPlayer and players[i].TeamColor == BrickColor.new("Really red") then
+endgame = false
+end
+if endgame == true then
+game:getService("Players").Character.Humanoid.Health = 0
+end
 wait()
 end
 end
