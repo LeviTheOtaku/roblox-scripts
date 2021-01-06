@@ -296,7 +296,7 @@ if players[i] ~= game:GetService("Players").LocalPlayer and players[i].TeamColor
 endgame = false
 end
 if endgame == true then
-game:getService("Players").Character.Humanoid.Health = 0
+game:getService("Players").LocalPlayer.Character.Humanoid.Health = 0
 end
 wait()
 end
