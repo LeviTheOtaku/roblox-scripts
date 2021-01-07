@@ -296,6 +296,7 @@ if players[i].TeamColor == BrickColor.new("Really red") then
 ingamePlayers = ingamePlayers+1
 end
 if ingamePlayers == 1 then
+wait(0.5)
 game:getService("Players").LocalPlayer.Character.Humanoid.Health = 0
 end
 wait()
