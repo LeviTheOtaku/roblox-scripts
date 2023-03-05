@@ -1,4 +1,4 @@
-local FTFHAX = Instance.new("ScreenGui")
+local FTFHAX = Instance.new("ScreenGui") -- loadstring(game:HttpGet("https://raw.githubusercontent.com/LeviTheOtaku/roblox-scripts/main/FTFHAX.lua",true))()
 local MenusTabFrame = Instance.new("Frame")
 local CheatButton = Instance.new("ImageButton")
 local TextLabel = Instance.new("TextLabel")
