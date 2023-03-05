@@ -302,6 +302,7 @@ end
 end)
 
 function reloadESP()
+	spawn(function()
 	local map = game.ReplicatedStorage.CurrentMap.Value
 	local mapstuff = map:getChildren()
 	for i=1,#mapstuff do
@@ -335,7 +336,7 @@ function reloadESP()
 			end
 		end
 	end
-
+end)
 	local player = game.Players:GetChildren()
 	for i=1, #player do
 		local character = player[i].Character
