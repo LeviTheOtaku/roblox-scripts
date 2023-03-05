@@ -306,7 +306,7 @@ function reloadESP()
 	local mapstuff = map:getChildren()
 	for i=1,#mapstuff do
 		if mapstuff[i].Name == "ComputerTable" then
-			if mapstuff[i]:findFirstChild("Highlight") then
+			if mapstuff[i]:findFirstChild("Highlight") and not pctoggle then
 				mapstuff[i].Highlight:remove()
 			end
 			if pctoggle then
@@ -324,7 +324,7 @@ function reloadESP()
 			end
 		end
 		if mapstuff[i].Name == "FreezePod" then
-			if mapstuff[i]:findFirstChild("Highlight") then
+			if mapstuff[i]:findFirstChild("Highlight") and not podstoggle then
 				mapstuff[i].Highlight:remove()
 			end
 			if podstoggle then
@@ -339,7 +339,7 @@ function reloadESP()
 	local player = game.Players:GetChildren()
 	for i=1, #player do
 		local character = player[i].Character
-		if character:findFirstChild("Highlight") then
+		if character:findFirstChild("Highlight") and not playertoggle then
 			character.Highlight:remove()
 		end
 		if playertoggle then
