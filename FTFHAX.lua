@@ -310,7 +310,7 @@ function reloadESP()
 			if mapstuff[i]:findFirstChild("Highlight") and not pctoggle then
 				mapstuff[i].Highlight:remove()
 			end
-			if pctoggle then
+			if pctoggle and not mapstuff[i]:findFirstChild("Highlight") then
 				local a = Instance.new("Highlight", mapstuff[i])
 				a.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
 				a.FillColor = Color3.fromRGB(13, 105, 172) -- avoid display bugs as soon as loads :)
@@ -328,7 +328,7 @@ function reloadESP()
 			if mapstuff[i]:findFirstChild("Highlight") and not podstoggle then
 				mapstuff[i].Highlight:remove()
 			end
-			if podstoggle then
+			if podstoggle and not mapstuff[i]:findFirstChild("Highlight") then
 				local a = Instance.new("Highlight", mapstuff[i])
 				a.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
 				a.FillColor = Color3.fromRGB(120,200,255)
@@ -343,7 +343,7 @@ end)
 		if character:findFirstChild("Highlight") and not playertoggle then
 			character.Highlight:remove()
 		end
-		if playertoggle then
+		if playertoggle and not character:findFirstChild("Highlight") then
 			local a = Instance.new("Highlight", character)
 			a.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
 			a.FillColor = Color3.fromRGB(0,255,0) -- avoid display bugs as soon as loads :)
