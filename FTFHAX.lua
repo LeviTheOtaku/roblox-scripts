@@ -287,12 +287,20 @@ NeverFailButton.MouseButton1Down:Connect(function()
 	end
 end)
 
-
+spawn(function()
 game.ReplicatedStorage.CurrentMap.Changed:Connect(function()
   wait(5)
 	reloadESP()
 end)
+end)
 
+spawn(function()
+while wait(5) do
+reloadESP()			
+end
+end)
+
+spawn(function()
 local mt = getrawmetatable(game)
 local old = mt.__namecall
 setreadonly(mt,false)
@@ -303,7 +311,7 @@ mt.__namecall = newcclosure(function(self, ...)
 	end
 	return old(self, unpack(args))
 end)
-
+end)
 
 function reloadESP()
 	local map = game.ReplicatedStorage.CurrentMap.Value
