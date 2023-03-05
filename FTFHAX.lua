@@ -331,8 +331,8 @@ function reloadESP()
 			if podstoggle then
 				local a = Instance.new("Highlight", mapstuff[i])
 				a.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
-				a.FillColor = Color3.fromRGB(160,255,255)
-				a.OutlineColor = Color3.fromRGB(0,0,255)
+				a.FillColor = Color3.fromRGB(120,200,255)
+				a.OutlineColor = Color3.fromRGB(160,255,255)
 			end
 		end
 	end
