@@ -279,38 +279,26 @@ NeverFailButton.MouseButton1Down:Connect(function()
 	if neverfailtoggle == false then
 		neverfailtoggle = true
 		NeverFailButton.BackgroundColor3 = Color3.new(0, 0.74902, 0)
-		reloadESP()
 	else
 		neverfailtoggle = false
 		NeverFailButton.BackgroundColor3 = Color3.new(0.74902, 0, 0)
-		reloadESP()
 	end
 end)
 
-spawn(function()
 game.ReplicatedStorage.CurrentMap.Changed:Connect(function()
-  wait(5)
-	reloadESP()
+reloadESP()
 end)
+
+
+local map = game.ReplicatedStorage.CurrentMap.Value
+map.ChildAdded:connect(function()
+reloadESP()
 end)
 
 spawn(function()
 while wait(5) do
 reloadESP()			
 end
-end)
-
-spawn(function()
-local mt = getrawmetatable(game)
-local old = mt.__namecall
-setreadonly(mt,false)
-mt.__namecall = newcclosure(function(self, ...)
-	local args = {...}
-	if getnamecallmethod() == 'FireServer' and args[1] == 'SetPlayerMinigameResult' and neverfailtoggle then
-		args[2] = true
-	end
-	return old(self, unpack(args))
-end)
 end)
 
 function reloadESP()
@@ -324,8 +312,8 @@ function reloadESP()
 			if pctoggle then
 				local a = Instance.new("Highlight", mapstuff[i])
 				a.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
-				a.FillColor = Color3.fromRGB(73, 56, 255) -- avoid display bugs as soon as loads :)
-				a.OutlineColor = Color3.fromRGB(82, 105, 255)
+				a.FillColor = Color3.fromRGB(13, 105, 172) -- avoid display bugs as soon as loads :)
+				a.OutlineColor = Color3.fromRGB(20, 165, 270) -- avoid display bugs as soon as loads :)
 				spawn(function()
 					repeat 
 						a.FillColor = mapstuff[i].Screen.Color
@@ -358,7 +346,7 @@ function reloadESP()
 			local a = Instance.new("Highlight", character)
 			a.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
 			a.FillColor = Color3.fromRGB(0,255,0) -- avoid display bugs as soon as loads :)
-			a.OutlineColor = Color3.fromRGB(127,255,127)
+			a.OutlineColor = Color3.fromRGB(127,255,127) -- avoid display bugs as soon as loads :)
 			spawn(function()
 				repeat
 					wait(0.1)
@@ -374,3 +362,14 @@ function reloadESP()
 		end
 	end
 end
+
+local mt = getrawmetatable(game)
+local old = mt.__namecall
+setreadonly(mt,false)
+mt.__namecall = newcclosure(function(self, ...)
+	local args = {...}
+	if getnamecallmethod() == 'FireServer' and args[1] == 'SetPlayerMinigameResult' and neverfailtoggle then
+		args[2] = true
+	end
+	return old(self, unpack(args))
+end)
