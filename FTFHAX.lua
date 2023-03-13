@@ -1,4 +1,4 @@
-local ver = "v0.0.4" -- loadstring(game:HttpGet("https://raw.githubusercontent.com/LeviTheOtaku/roblox-scripts/main/FTFHAX.lua",true))()
+local ver = "v0.0.7" -- loadstring(game:HttpGet("https://raw.githubusercontent.com/LeviTheOtaku/roblox-scripts/main/FTFHAX.lua",true))()
 
 local FTFHAX = Instance.new("ScreenGui")
 local MenusTabFrame = Instance.new("Frame")
@@ -603,6 +603,18 @@ CloseButton_3.MouseButton1Down:Connect(function()
 	ToolsMenuWindow.Visible = false
 end)
 
+BackButton.MouseButton1Down:Connect(function()
+	ESPMenuWindow.Visible = false
+	ToolsMenuWindow.Visible = false
+	MainMenuWindow.Visible = true
+end)
+
+BackButton_2.MouseButton1Down:Connect(function()
+	ESPMenuWindow.Visible = false
+	ToolsMenuWindow.Visible = false
+	MainMenuWindow.Visible = true
+end)
+
 ESPButton.MouseButton1Down:Connect(function()
 	ESPMenuWindow.Visible = true
 	ToolsMenuWindow.Visible = false
@@ -610,16 +622,23 @@ ESPButton.MouseButton1Down:Connect(function()
 end)
 
 ToolsButton.MouseButton1Down:Connect(function()
-	ESPMenuWindow.Visible = true
-	ToolsMenuWindow.Visible = false
+	ESPMenuWindow.Visible = false
+	ToolsMenuWindow.Visible = true
 	MainMenuWindow.Visible = false
 end)
+
 
 local podstoggle = false
 local pctoggle = false
 local playertoggle = false
-local neverfailtoggle = false
 local bestpctoggle = false
+local exitstoggle = false
+
+
+local neverfailtoggle = false
+local autointeracttoggle = false
+local autoplaytoggle = false
+
 
 PodsESPButton.MouseButton1Down:Connect(function()
 	if podstoggle == false then
@@ -669,6 +688,16 @@ BestPCESPButton.MouseButton1Down:Connect(function()
 	end
 end)
 
+ExitsESPButton.MouseButton1Down:Connect(function()
+	if exitstoggle == false then
+		exitstoggle = true
+		ExitsESPButton.BackgroundColor3 = Color3.new(0, 0.74902, 0)
+	else
+		exitstoggle = false
+		ExitsESPButton.BackgroundColor3 = Color3.new(0.74902, 0, 0)
+	end
+end)
+
 NeverFailButton.MouseButton1Down:Connect(function()
 	if neverfailtoggle == false then
 		neverfailtoggle = true
@@ -679,21 +708,24 @@ NeverFailButton.MouseButton1Down:Connect(function()
 	end
 end)
 
-game.ReplicatedStorage.CurrentMap.Changed:Connect(function()
-	reloadESP()
-end)
-
-
-local map = game.ReplicatedStorage.CurrentMap.Value
-map.ChildAdded:connect(function(check)
-	if check ~= nil then
-		reloadESP()
+AutoInteractButton.MouseButton1Down:Connect(function()
+	if autointeracttoggle == false then
+		autointeracttoggle = true
+		AutoInteractButton.BackgroundColor3 = Color3.new(0, 0.74902, 0)
+	else
+		autointeracttoggle = false
+		AutoInteractButton.BackgroundColor3 = Color3.new(0.74902, 0, 0)
 	end
 end)
 
-spawn(function()
-	while wait(5) do
-		reloadESP()			
+
+AutoPlayButton.MouseButton1Down:Connect(function()
+	if autoplaytoggle == false then
+		autoplaytoggle = true
+		AutoPlayButton.BackgroundColor3 = Color3.new(0, 0.74902, 0)
+	else
+		autoplaytoggle = false
+		AutoPlayButton.BackgroundColor3 = Color3.new(0.74902, 0, 0)
 	end
 end)
 
@@ -716,7 +748,7 @@ function reloadESP()
 							if bestpctoggle then
 								if mapstuff[i] == getBestPC() then
 									a.FillColor = mapstuff[i].Screen.Color
-									a.OutlineColor = Color3.fromRGB(255,0,255)
+									a.OutlineColor = Color3.fromRGB(150, 0, 255)
 								else
 									a.FillColor = mapstuff[i].Screen.Color
 									a.OutlineColor = Color3.fromRGB(a.FillColor.R*400, a.FillColor.G*400, a.FillColor.B*400)
@@ -741,6 +773,17 @@ function reloadESP()
 					a.OutlineColor = Color3.fromRGB(160,255,255)
 				end
 			end
+			if mapstuff[i].Name == "ExitDoor" then
+				if mapstuff[i]:findFirstChild("Highlight") and not exitstoggle then
+					mapstuff[i].Highlight:remove()
+				end
+				if exitstoggle and not mapstuff[i]:findFirstChild("Highlight") then
+					local a = Instance.new("Highlight", mapstuff[i])
+					a.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+					a.FillColor = Color3.fromRGB(252, 255, 100)
+					a.OutlineColor = Color3.fromRGB(255,255,160)
+				end
+			end
 		end
 	end)
 	local player = game.Players:GetChildren()
@@ -757,7 +800,7 @@ function reloadESP()
 			spawn(function()
 				repeat
 					wait(0.1)
-					if player == getBeast() then
+					if player[i] == getBeast() then
 						a.FillColor = Color3.fromRGB(255,0,0)
 						a.OutlineColor = Color3.fromRGB(255,127,127)
 					else
@@ -770,18 +813,6 @@ function reloadESP()
 	end
 end
 
-local mt = getrawmetatable(game)
-local old = mt.__namecall
-setreadonly(mt,false)
-mt.__namecall = newcclosure(function(self, ...)
-	local args = {...}
-	if getnamecallmethod() == 'FireServer' and args[1] == 'SetPlayerMinigameResult' and neverfailtoggle then
-		args[2] = true
-	end
-	return old(self, unpack(args))
-end)
-
-
 
 function getBeast()
 	local player = game.Players:GetChildren()
@@ -793,11 +824,11 @@ function getBeast()
 		end
 	end
 end
-	
+
 function getBestPC()
-	
+
 	local beast = getBeast()
-	
+
 	local bestdistance = 0
 	local bestpc = nil
 
@@ -814,6 +845,132 @@ function getBestPC()
 			end
 		end
 	end
-	
+
 	return bestpc
 end
+
+
+spawn(function() -- reload esp when new map
+	game.ReplicatedStorage.CurrentMap.Changed:Connect(function()
+		reloadESP()
+	end)
+end)
+
+spawn(function() -- reload esp every 5 seconds
+	while wait(5) do
+		reloadESP()			
+	end
+end)
+
+spawn(function() -- never fail hacking
+	local mt = getrawmetatable(game)
+	local old = mt.__namecall
+	setreadonly(mt,false)
+	mt.__namecall = newcclosure(function(self, ...)
+		local args = {...}
+		if getnamecallmethod() == 'FireServer' and args[1] == 'SetPlayerMinigameResult' and neverfailtoggle then
+			args[2] = true
+		end
+		return old(self, unpack(args))
+	end)
+end)
+
+spawn(function() -- auto interact
+	game.Players.LocalPlayer.PlayerGui.ScreenGui.ActionBox:GetPropertyChangedSignal("Visible"):connect(function()
+		if autointeracttoggle then
+			game.ReplicatedStorage.RemoteEvent:FireServer("Input", "Action", true)
+		end	
+end)
+end)
+
+spawn(function() -- auto play (buggy and still testing :))
+	while wait(3) do
+		if autoplaytoggle then
+			local beast = nil
+			local player = game.Players:GetChildren()
+			for i=1, #player do
+				local character = player[i].Character
+				if character:findFirstChild("BeastPowers") then
+					beast = character
+				end
+			end
+
+			local bestdistance = 0
+			local bestpc = nil
+
+			local map = game.ReplicatedStorage.CurrentMap.Value
+			local mapstuff = map:getChildren()
+			for i=1,#mapstuff do
+				if mapstuff[i].Name == "ComputerTable" then
+					if mapstuff[i].Screen.BrickColor ~= BrickColor.new("Dark green") then
+						local magnitude = (mapstuff[i].Screen.Position - beast.HumanoidRootPart.Position).magnitude
+						if magnitude > bestdistance then
+							bestdistance = magnitude
+							bestpc = mapstuff[i]
+						end
+					end
+				end
+				if mapstuff[i].Name == "SingleDoor" or mapstuff[i].Name == "DoubleDoor" then
+					local doorParts = mapstuff[i]:getDescendants()
+					for i=1,#doorParts do
+						if doorParts[i].ClassName == "Part" then
+							if not doorParts[i]:findFirstChild("PathfindingModifier") then
+								local a = Instance.new("PathfindingModifier", doorParts[i])
+								a.PassThrough = true
+							end
+						end
+					end
+				end
+			end
+
+			print(bestdistance)
+
+			local PathfindingService = game:GetService("PathfindingService")
+			local Humanoid = game.Players.LocalPlayer.Character:WaitForChild("Humanoid")
+			local Root = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
+			local goal = bestpc["ComputerTrigger1"].Position
+			local agentParams = {
+				AgentRadius = 2,
+				AgentHeight = 2,
+				AgentCanJump = false,
+				AgentWalkableClimb = 4,
+				WaypointSpacing = 2
+			}
+
+			local path = PathfindingService:CreatePath(agentParams)
+
+			path:ComputeAsync(Root.Position, goal)
+			print(path.Status)
+			if path.Status == Enum.PathStatus.Success then
+				local waypoints = path:GetWaypoints()
+				for i, waypoint in ipairs(waypoints) do
+					Humanoid:MoveTo(waypoint.Position)
+
+					local a = Instance.new("Part", workspace)
+					a.Shape = Enum.PartType.Ball
+					a.Position = waypoint.Position
+					a.BrickColor = BrickColor.new("Pink")
+					a.Material = Enum.Material.Neon
+					a.Size = Vector3.new(1,1,1)
+					a.Anchored = true
+					a.CanCollide = false
+					local touch = false
+
+					spawn(function()
+						a.Touched:Connect(function(hit)
+							if hit.Parent:FindFirstChild("Humanoid") then
+								touch = true
+								a:remove()
+							end
+						end)
+					end)
+
+					repeat
+						wait(0.05)
+					until touch
+				end
+			end
+
+		end
+	end
+end)
