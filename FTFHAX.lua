@@ -682,9 +682,11 @@ BestPCESPButton.MouseButton1Down:Connect(function()
 	if bestpctoggle == false then
 		bestpctoggle = true
 		BestPCESPButton.BackgroundColor3 = Color3.new(0, 0.74902, 0)
+		reloadESP()
 	else
 		bestpctoggle = false
 		BestPCESPButton.BackgroundColor3 = Color3.new(0.74902, 0, 0)
+		reloadESP()
 	end
 end)
 
@@ -692,9 +694,11 @@ ExitsESPButton.MouseButton1Down:Connect(function()
 	if exitstoggle == false then
 		exitstoggle = true
 		ExitsESPButton.BackgroundColor3 = Color3.new(0, 0.74902, 0)
+		reloadESP()
 	else
 		exitstoggle = false
 		ExitsESPButton.BackgroundColor3 = Color3.new(0.74902, 0, 0)
+		reloadESP()
 	end
 end)
 
@@ -702,9 +706,11 @@ NeverFailButton.MouseButton1Down:Connect(function()
 	if neverfailtoggle == false then
 		neverfailtoggle = true
 		NeverFailButton.BackgroundColor3 = Color3.new(0, 0.74902, 0)
+		reloadESP()
 	else
 		neverfailtoggle = false
 		NeverFailButton.BackgroundColor3 = Color3.new(0.74902, 0, 0)
+		reloadESP()
 	end
 end)
 
@@ -712,9 +718,11 @@ AutoInteractButton.MouseButton1Down:Connect(function()
 	if autointeracttoggle == false then
 		autointeracttoggle = true
 		AutoInteractButton.BackgroundColor3 = Color3.new(0, 0.74902, 0)
+		reloadESP()
 	else
 		autointeracttoggle = false
 		AutoInteractButton.BackgroundColor3 = Color3.new(0.74902, 0, 0)
+		reloadESP()
 	end
 end)
 
@@ -723,9 +731,11 @@ AutoPlayButton.MouseButton1Down:Connect(function()
 	if autoplaytoggle == false then
 		autoplaytoggle = true
 		AutoPlayButton.BackgroundColor3 = Color3.new(0, 0.74902, 0)
+		reloadESP()
 	else
 		autoplaytoggle = false
 		AutoPlayButton.BackgroundColor3 = Color3.new(0.74902, 0, 0)
+		reloadESP()
 	end
 end)
 
