@@ -217,7 +217,7 @@ CreditTotalText.Position = UDim2.new(1, -111, 0, 0)
 CreditTotalText.Size = UDim2.new(0, 120, 1, 0)
 CreditTotalText.ZIndex = 5
 CreditTotalText.FontSize = Enum.FontSize.Size36
-CreditTotalText.Text = "v0.0.1"
+CreditTotalText.Text = "v0.0.2"
 CreditTotalText.TextColor3 = Color3.new(1, 1, 0)
 CreditTotalText.TextScaled = true
 CreditTotalText.TextSize = 34
@@ -291,8 +291,10 @@ end)
 
 
 local map = game.ReplicatedStorage.CurrentMap.Value
-map.ChildAdded:connect(function()
+map.ChildAdded:connect(function(check)
+if check ~= nil then
 reloadESP()
+end
 end)
 
 spawn(function()
@@ -351,7 +353,7 @@ end)
 			spawn(function()
 				repeat
 					wait(0.1)
-					if character:findFirstChild("BeastPowers") then
+					if character:findFirstChild("BeastPowers") or game.Players[character.Name].TempPlayerStatsModule.IsBeast.Value == true then
 						a.FillColor = Color3.fromRGB(255,0,0)
 						a.OutlineColor = Color3.fromRGB(255,127,127)
 					else
