@@ -742,6 +742,7 @@ end)
 function reloadESP()
 	spawn(function()
 		local map = game.ReplicatedStorage.CurrentMap.Value
+		if map ~= nil then
 		local mapstuff = map:getChildren()
 		for i=1,#mapstuff do
 			if mapstuff[i].Name == "ComputerTable" then
@@ -794,7 +795,8 @@ function reloadESP()
 					a.OutlineColor = Color3.fromRGB(255,255,160)
 				end
 			end
-		end
+			end
+			end
 	end)
 	local player = game.Players:GetChildren()
 	for i=1, #player do
