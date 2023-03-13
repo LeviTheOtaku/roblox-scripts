@@ -802,7 +802,7 @@ function reloadESP()
 		if character:findFirstChild("Highlight") and not playertoggle then
 			character.Highlight:remove()
 		end
-		if playertoggle and not character:findFirstChild("Highlight") then
+		if playertoggle and not character:findFirstChild("Highlight") and character ~= game.Players.LocalPlayer.Character then
 			local a = Instance.new("Highlight", character)
 			a.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
 			a.FillColor = Color3.fromRGB(0,255,0) -- avoid display bugs as soon as loads :)
