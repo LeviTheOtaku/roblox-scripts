@@ -748,7 +748,7 @@ function reloadESP()
 							if bestpctoggle then
 								if mapstuff[i] == getBestPC() then
 									a.FillColor = mapstuff[i].Screen.Color
-									a.OutlineColor = Color3.fromRGB(150, 0, 255)
+									a.OutlineColor = Color3.fromRGB(200, 0, 255)
 								else
 									a.FillColor = mapstuff[i].Screen.Color
 									a.OutlineColor = Color3.fromRGB(a.FillColor.R*400, a.FillColor.G*400, a.FillColor.B*400)
