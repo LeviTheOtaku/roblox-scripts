@@ -849,11 +849,13 @@ function getBestPC()
 	for i=1,#mapstuff do
 		if mapstuff[i].Name == "ComputerTable" then
 			if mapstuff[i].Screen.BrickColor ~= BrickColor.new("Dark green") then
+				if beast ~= nil then
 				local magnitude = (mapstuff[i].Screen.Position - beast.Character:findFirstChild("HumanoidRootPart").Position).magnitude
 				if magnitude > bestdistance then
 					bestdistance = magnitude
 					bestpc = mapstuff[i]
-				end
+					end
+					end
 			end
 		end
 	end
