@@ -1,4 +1,4 @@
-local ver = "v0.0.7" -- loadstring(game:HttpGet("https://raw.githubusercontent.com/LeviTheOtaku/roblox-scripts/main/FTFHAX.lua",true))()
+local ver = "v0.0.8" -- loadstring(game:HttpGet("https://raw.githubusercontent.com/LeviTheOtaku/roblox-scripts/main/FTFHAX.lua",true))()
 
 local FTFHAX = Instance.new("ScreenGui")
 local MenusTabFrame = Instance.new("Frame")
@@ -833,7 +833,7 @@ function getBeast()
 	for i=1, #player do
 		local character = player[i].Character
 		wait(0.1)
-		if character:findFirstChild("BeastPowers") or player[i]:findFirstChild("TempPlayerStatsModule"):findFirstChild("IsBeast").Value == true then
+		if player[i]:findFirstChild("TempPlayerStatsModule"):findFirstChild("IsBeast").Value == true or (character ~= nil and character:findFirstChild("BeastPowers")) then
 			return player[i]
 		end
 	end
@@ -847,6 +847,7 @@ function getBestPC()
 	local bestpc = nil
 
 	local map = game.ReplicatedStorage.CurrentMap.Value
+	if map ~= nil then
 	local mapstuff = map:getChildren()
 	for i=1,#mapstuff do
 		if mapstuff[i].Name == "ComputerTable" then
@@ -861,7 +862,7 @@ function getBestPC()
 			end
 		end
 	end
-
+	end
 	return bestpc
 end
 
@@ -901,6 +902,7 @@ end)
 
 spawn(function() -- auto play (buggy and still testing :))
 	while wait(3) do
+			pcall(function()
 		if autoplaytoggle then
 			local beast = nil
 			local player = game.Players:GetChildren()
@@ -988,5 +990,6 @@ spawn(function() -- auto play (buggy and still testing :))
 			end
 
 		end
+	   end)
 	end
 end)
