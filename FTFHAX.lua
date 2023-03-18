@@ -756,7 +756,7 @@ function reloadESP()
 					a.OutlineColor = Color3.fromRGB(20, 165, 270) -- avoid display bugs as soon as loads :)
 					spawn(function()
 						repeat 
-							if bestpctoggle then
+							if bestpctoggle and mapstuff[i]:findFirstChild("Screen") then
 								if mapstuff[i] == getBestPC() then
 									a.FillColor = mapstuff[i]:findFirstChild("Screen").Color
 									a.OutlineColor = Color3.fromRGB(200, 0, 255)
