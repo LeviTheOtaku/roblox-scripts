@@ -953,11 +953,6 @@ spawn(function() -- auto play (buggy and still testing :))
 			if path.Status == Enum.PathStatus.Success then
 				local waypoints = path:GetWaypoints()
 				for i, waypoint in ipairs(waypoints) do
-					spawn(function()
-					if bestpc ~= getBestPC() then
-					break
-					end
-					end)
 					Humanoid:MoveTo(waypoint.Position)
 
 					local a = Instance.new("Part", workspace)
@@ -978,7 +973,10 @@ spawn(function() -- auto play (buggy and still testing :))
 							end
 						end)
 					end)
-
+					
+					if bestpc ~= getBestPC() then
+					break
+					end
 					repeat
 						wait(0.05)
 					until touch
