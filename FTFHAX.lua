@@ -1,4 +1,4 @@
-local ver = "v0.1.3" -- loadstring(game:HttpGet("https://raw.githubusercontent.com/LeviTheOtaku/roblox-scripts/main/FTFHAX.lua",true))()
+local ver = "v0.1.4" -- loadstring(game:HttpGet("https://raw.githubusercontent.com/LeviTheOtaku/roblox-scripts/main/FTFHAX.lua",true))()
 
 local FTFHAX = Instance.new("ScreenGui")
 local MenusTabFrame = Instance.new("Frame")
@@ -904,6 +904,39 @@ spawn(function() -- auto play (buggy and still testing :))
 		if autoplaytoggle then	
 			
 
+function getBeast()
+	local player = game.Players:GetChildren()
+	for i=1, #player do
+		local character = player[i].Character
+		if player[i]:findFirstChild("TempPlayerStatsModule"):findFirstChild("IsBeast").Value == true or (character ~= nil and character:findFirstChild("BeastPowers")) then
+			return player[i]
+		end
+	end
+end
+
+function getBestPC()
+    local beast = getBeast()
+    local pcs = {}
+
+    local map = game.ReplicatedStorage.CurrentMap.Value
+    if map ~= nil then
+        local mapstuff = map:getChildren()
+        for i=1,#mapstuff do
+            if mapstuff[i].Name == "ComputerTable" then
+                if mapstuff[i].Screen.BrickColor ~= BrickColor.new("Dark green") then
+                    local magnitude = ((mapstuff[i].Screen.Position - beast.Character:findFirstChild("HumanoidRootPart").Position).magnitude)
+                    table.insert(pcs, {magnitude=magnitude, pc=mapstuff[i]})
+                end
+            end
+        end
+    end
+
+    table.sort(pcs, function(a, b) return a.magnitude < b.magnitude end)
+    return pcs
+end
+
+
+
 
 local beast = getBeast()
 			if not getBeast().Character.HumanoidRootPart:findFirstChild("avoid") then
@@ -933,7 +966,6 @@ local beast = getBeast()
 			    end)
 			end
 
-			local bestdistance = 0
 			local bestpc = getBestPC()
 
 			local map = game.ReplicatedStorage.CurrentMap.Value
@@ -952,36 +984,63 @@ local beast = getBeast()
 				end
 			end
 
+			
+			local pcs = getBestPC()
 			local PathfindingService = game:GetService("PathfindingService")
 			local Humanoid = game.Players.LocalPlayer.Character:WaitForChild("Humanoid")
 			local Root = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
-			local goal = bestpc["ComputerTrigger1"].Position
+			local goal = nil
 			local agentParams = {
 				AgentRadius = 2,
 				AgentHeight = 2,
-				AgentCanJump = false,
+				AgentCanJump = true,
 				AgentWalkableClimb = 4,
-				WaypointSpacing = 5,
+				WaypointSpacing = 2,
     				Costs = {
         			avoid = 10.0
     				}
 			}
 
-			local path = PathfindingService:CreatePath(agentParams)
 
-			path:ComputeAsync(Root.Position, goal)
-			print(path.Status)
-			if path.Status == Enum.PathStatus.Success then
-				local waypoints = path:GetWaypoints()
-				for i, waypoint in ipairs(waypoints) do
+
+			for i, pc in ipairs(pcs) do
+				goal = pc.pc["ComputerTrigger1"].Position
+				local agentParams = {
+					AgentRadius = 2,
+					AgentHeight = 2,
+					AgentCanJump = false,
+					AgentWalkableClimb = 4,
+					WaypointSpacing = 2,
+					Costs = {
+						avoid = 10.0
+					}
+				}
+			
+				local path = PathfindingService:CreatePath(agentParams)
+			
+				path:ComputeAsync(Root.Position, goal)
+				print(path.Status)
+				if path.Status == Enum.PathStatus.Success then
+					local waypoints = path:GetWaypoints()
+					for i, waypoint in ipairs(waypoints) do
+						
+						local currentWaypoint = waypoints[i]
+                local ray = Ray.new(currentWaypoint.Position, Vector3.new(0, 1, 0) * 3)
+                local part = workspace:FindPartOnRay(ray)
+                if part and part.CanCollide then
+                local humanoid = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+                print("need to crouch :)")
+                end
+
+
+
 					Humanoid:MoveTo(waypoint.Position)
-
 					local a = Instance.new("Part", workspace)
 					a.Shape = Enum.PartType.Ball
 					a.Position = waypoint.Position
 					a.BrickColor = BrickColor.new("Pink")
 					a.Material = Enum.Material.Neon
-					a.Size = Vector3.new(1,1,1)
+					a.Size = Vector3.new(3,3,3)
 					a.Anchored = true
 					a.CanCollide = false
 					local touch = false
@@ -989,17 +1048,25 @@ local beast = getBeast()
 					spawn(function()
 						a.Touched:Connect(function(hit)
 							if hit.Parent:FindFirstChild("Humanoid") then
+							    if hit.Parent.Name == game.Players.LocalPlayer.Character.Name then
 								touch = true
 								a:remove()
+								end
 							end
 						end)
+						wait(10)
+						a:remove()
 					end)
-					
+
 					repeat
 						wait(0.05)
 					until touch
+                
+					end
+					break
 				end
 			end
+			
 
 
 			
