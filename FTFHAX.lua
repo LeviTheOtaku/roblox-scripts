@@ -934,8 +934,6 @@ spawn(function() -- auto play (buggy and still testing :))
 				end
 			end
 
-			print(bestdistance)
-
 			local PathfindingService = game:GetService("PathfindingService")
 			local Humanoid = game.Players.LocalPlayer.Character:WaitForChild("Humanoid")
 			local Root = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
@@ -955,6 +953,9 @@ spawn(function() -- auto play (buggy and still testing :))
 			if path.Status == Enum.PathStatus.Success then
 				local waypoints = path:GetWaypoints()
 				for i, waypoint in ipairs(waypoints) do
+					if bestpc ~= getBestPC() then
+					break
+					end
 					Humanoid:MoveTo(waypoint.Position)
 
 					local a = Instance.new("Part", workspace)
