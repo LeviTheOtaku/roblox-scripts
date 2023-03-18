@@ -903,8 +903,28 @@ end)
 spawn(function() -- auto play (buggy and still testing :))
 	while wait(3) do
 			pcall(function()
-		if autoplaytoggle then
+		if autoplaytoggle then	
 			local beast = getBeast()
+			
+			local a = Instance.new("Part", getBeast().Character.HumanoidRootPart)
+			a.Shape = Enum.PartType.Ball
+			a.Position = getBeast().Character.HumanoidRootPart.Position
+			a.Massless = true
+			a.BrickColor = BrickColor.new("Really red")
+			a.Material = Enum.Material.Neon
+			a.Size = Vector3.new(150,150,150)
+			a.Anchored = false
+			a.CanCollide = false
+			a.Transparency = 1
+			a.Name = "avoid"
+
+			local b = Instance.new("Weld", a)
+			b.Part0 = a
+			b.Part1 = getBeast().Character.HumanoidRootPart
+
+			local c = Instance.new("PathfindingModifier", a)
+			c.PassThrough = false
+			c.Label = "avoid"
 
 			local bestdistance = 0
 			local bestpc = nil
@@ -943,7 +963,10 @@ spawn(function() -- auto play (buggy and still testing :))
 				AgentHeight = 2,
 				AgentCanJump = false,
 				AgentWalkableClimb = 4,
-				WaypointSpacing = 2
+				WaypointSpacing = 2,
+    				Costs = {
+        			avoid = 10.0
+    				}
 			}
 
 			local path = PathfindingService:CreatePath(agentParams)
