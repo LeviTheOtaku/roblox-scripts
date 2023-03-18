@@ -904,7 +904,8 @@ spawn(function() -- auto play (buggy and still testing :))
 		if autoplaytoggle then	
 			
 
-			local beast = getBeast()
+
+local beast = getBeast()
 			if not getBeast().Character.HumanoidRootPart:findFirstChild("avoid") then
 			local a = Instance.new("Part", getBeast().Character.HumanoidRootPart)
 			a.Shape = Enum.PartType.Ball
@@ -925,6 +926,11 @@ spawn(function() -- auto play (buggy and still testing :))
 			local c = Instance.new("PathfindingModifier", a)
 			c.PassThrough = false
 			c.Label = "avoid"
+			
+			spawn(function()
+			    repeat wait(1) until getBeast().Name ~= a.Parent.Parent.Name
+			    a:remove()
+			    end)
 			end
 
 			local bestdistance = 0
@@ -994,6 +1000,7 @@ spawn(function() -- auto play (buggy and still testing :))
 					until touch
 				end
 			end
+
 
 			
 
