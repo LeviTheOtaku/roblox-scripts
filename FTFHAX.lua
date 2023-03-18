@@ -1,4 +1,4 @@
-local ver = "v0.1.1" -- loadstring(game:HttpGet("https://raw.githubusercontent.com/LeviTheOtaku/roblox-scripts/main/FTFHAX.lua",true))()
+local ver = "v0.1.2" -- loadstring(game:HttpGet("https://raw.githubusercontent.com/LeviTheOtaku/roblox-scripts/main/FTFHAX.lua",true))()
 
 local FTFHAX = Instance.new("ScreenGui")
 local MenusTabFrame = Instance.new("Frame")
@@ -874,7 +874,7 @@ spawn(function() -- reload esp when new map
 end)
 
 spawn(function() -- reload esp every 5 seconds
-	while wait(5) do
+	while wait(2.5) do
 		reloadESP()			
 	end
 end)
