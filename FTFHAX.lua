@@ -800,7 +800,7 @@ function reloadESP()
 	end)
 	local player = game.Players:GetChildren()
 	for i=1, #player do
-		if player[i] ~= game.Players.LocalPlayer then
+		if player[i] ~= game.Players.LocalPlayer and player[i].Character ~= nil then
 		local character = player[i].Character
 		if character:findFirstChild("Highlight") and not playertoggle then
 			character.Highlight:remove()
