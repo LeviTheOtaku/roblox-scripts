@@ -1,4 +1,4 @@
-local ver = "v0.1.0" -- loadstring(game:HttpGet("https://raw.githubusercontent.com/LeviTheOtaku/roblox-scripts/main/FTFHAX.lua",true))()
+local ver = "v0.1.1" -- loadstring(game:HttpGet("https://raw.githubusercontent.com/LeviTheOtaku/roblox-scripts/main/FTFHAX.lua",true))()
 
 local FTFHAX = Instance.new("ScreenGui")
 local MenusTabFrame = Instance.new("Frame")
@@ -953,9 +953,11 @@ spawn(function() -- auto play (buggy and still testing :))
 			if path.Status == Enum.PathStatus.Success then
 				local waypoints = path:GetWaypoints()
 				for i, waypoint in ipairs(waypoints) do
+					spawn(function()
 					if bestpc ~= getBestPC() then
 					break
 					end
+					end)
 					Humanoid:MoveTo(waypoint.Position)
 
 					local a = Instance.new("Part", workspace)
