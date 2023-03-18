@@ -1,4 +1,4 @@
-local ver = "v0.0.9" -- loadstring(game:HttpGet("https://raw.githubusercontent.com/LeviTheOtaku/roblox-scripts/main/FTFHAX.lua",true))()
+local ver = "v0.1.0" -- loadstring(game:HttpGet("https://raw.githubusercontent.com/LeviTheOtaku/roblox-scripts/main/FTFHAX.lua",true))()
 
 local FTFHAX = Instance.new("ScreenGui")
 local MenusTabFrame = Instance.new("Frame")
@@ -904,14 +904,7 @@ spawn(function() -- auto play (buggy and still testing :))
 	while wait(3) do
 			pcall(function()
 		if autoplaytoggle then
-			local beast = nil
-			local player = game.Players:GetChildren()
-			for i=1, #player do
-				local character = player[i].Character
-				if character:findFirstChild("BeastPowers") then
-					beast = character
-				end
-			end
+			local beast = getBeast()
 
 			local bestdistance = 0
 			local bestpc = nil
@@ -921,7 +914,7 @@ spawn(function() -- auto play (buggy and still testing :))
 			for i=1,#mapstuff do
 				if mapstuff[i].Name == "ComputerTable" then
 					if mapstuff[i].Screen.BrickColor ~= BrickColor.new("Dark green") then
-						local magnitude = (mapstuff[i].Screen.Position - beast.HumanoidRootPart.Position).magnitude
+						local magnitude = (mapstuff[i].Screen.Position - beast.Character.HumanoidRootPart.Position).magnitude
 						if magnitude > bestdistance then
 							bestdistance = magnitude
 							bestpc = mapstuff[i]
