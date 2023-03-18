@@ -974,9 +974,6 @@ spawn(function() -- auto play (buggy and still testing :))
 						end)
 					end)
 					
-					if bestpc ~= getBestPC() then
-					break
-					end
 					repeat
 						wait(0.05)
 					until touch
