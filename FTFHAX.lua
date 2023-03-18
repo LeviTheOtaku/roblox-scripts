@@ -1,4 +1,4 @@
-local ver = "v0.1.2" -- loadstring(game:HttpGet("https://raw.githubusercontent.com/LeviTheOtaku/roblox-scripts/main/FTFHAX.lua",true))()
+local ver = "v0.1.3" -- loadstring(game:HttpGet("https://raw.githubusercontent.com/LeviTheOtaku/roblox-scripts/main/FTFHAX.lua",true))()
 
 local FTFHAX = Instance.new("ScreenGui")
 local MenusTabFrame = Instance.new("Frame")
@@ -832,7 +832,6 @@ function getBeast()
 	local player = game.Players:GetChildren()
 	for i=1, #player do
 		local character = player[i].Character
-		wait(0.1)
 		if player[i]:findFirstChild("TempPlayerStatsModule"):findFirstChild("IsBeast").Value == true or (character ~= nil and character:findFirstChild("BeastPowers")) then
 			return player[i]
 		end
@@ -840,7 +839,6 @@ function getBeast()
 end
 
 function getBestPC()
-
 	local beast = getBeast()
 
 	local bestdistance = 0
@@ -904,15 +902,17 @@ spawn(function() -- auto play (buggy and still testing :))
 	while wait(3) do
 			pcall(function()
 		if autoplaytoggle then	
-			local beast = getBeast()
 			
+
+			local beast = getBeast()
+			if not getBeast().Character.HumanoidRootPart:findFirstChild("avoid") then
 			local a = Instance.new("Part", getBeast().Character.HumanoidRootPart)
 			a.Shape = Enum.PartType.Ball
 			a.Position = getBeast().Character.HumanoidRootPart.Position
 			a.Massless = true
 			a.BrickColor = BrickColor.new("Really red")
 			a.Material = Enum.Material.Neon
-			a.Size = Vector3.new(150,150,150)
+			a.Size = Vector3.new(250,250,250)
 			a.Anchored = false
 			a.CanCollide = false
 			a.Transparency = 1
@@ -925,22 +925,14 @@ spawn(function() -- auto play (buggy and still testing :))
 			local c = Instance.new("PathfindingModifier", a)
 			c.PassThrough = false
 			c.Label = "avoid"
+			end
 
 			local bestdistance = 0
-			local bestpc = nil
+			local bestpc = getBestPC()
 
 			local map = game.ReplicatedStorage.CurrentMap.Value
 			local mapstuff = map:getChildren()
 			for i=1,#mapstuff do
-				if mapstuff[i].Name == "ComputerTable" then
-					if mapstuff[i].Screen.BrickColor ~= BrickColor.new("Dark green") then
-						local magnitude = (mapstuff[i].Screen.Position - beast.Character.HumanoidRootPart.Position).magnitude
-						if magnitude > bestdistance then
-							bestdistance = magnitude
-							bestpc = mapstuff[i]
-						end
-					end
-				end
 				if mapstuff[i].Name == "SingleDoor" or mapstuff[i].Name == "DoubleDoor" then
 					local doorParts = mapstuff[i]:getDescendants()
 					for i=1,#doorParts do
@@ -963,7 +955,7 @@ spawn(function() -- auto play (buggy and still testing :))
 				AgentHeight = 2,
 				AgentCanJump = false,
 				AgentWalkableClimb = 4,
-				WaypointSpacing = 2,
+				WaypointSpacing = 5,
     				Costs = {
         			avoid = 10.0
     				}
@@ -1002,6 +994,8 @@ spawn(function() -- auto play (buggy and still testing :))
 					until touch
 				end
 			end
+
+			
 
 		end
 	   end)
