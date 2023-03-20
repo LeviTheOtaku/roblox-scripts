@@ -964,8 +964,8 @@ break
 end
 				
 if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - beast.Character:findFirstChild("HumanoidRootPart").Position).magnitude > 100 then
-print("RUN")
-break
+print("beast nearby")
+--break
 end
 				
 goal = pc.pc["ComputerTrigger1"].Position
