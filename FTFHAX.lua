@@ -839,30 +839,26 @@ function getBeast()
 end
 
 function getBestPC()
-	local beast = getBeast()
+    local beast = getBeast()
+    local pcs = {}
 
-	local bestdistance = 0
-	local bestpc = nil
+    local map = game.ReplicatedStorage.CurrentMap.Value
+    if map ~= nil then
+        local mapstuff = map:getChildren()
+        for i=1,#mapstuff do
+            if mapstuff[i].Name == "ComputerTable" then
+                if mapstuff[i].Screen.BrickColor ~= BrickColor.new("Dark green") then
+                    local magnitude = ((mapstuff[i].Screen.Position - beast.Character:findFirstChild("HumanoidRootPart").Position).magnitude)
+                    table.insert(pcs, {magnitude=magnitude, pc=mapstuff[i]})
+                end
+            end
+        end
+    end
 
-	local map = game.ReplicatedStorage.CurrentMap.Value
-	if map ~= nil then
-	local mapstuff = map:getChildren()
-	for i=1,#mapstuff do
-		if mapstuff[i].Name == "ComputerTable" then
-			if mapstuff[i].Screen.BrickColor ~= BrickColor.new("Dark green") then
-				if beast ~= nil then
-				local magnitude = (mapstuff[i].Screen.Position - beast.Character:findFirstChild("HumanoidRootPart").Position).magnitude
-				if magnitude > bestdistance then
-					bestdistance = magnitude
-					bestpc = mapstuff[i]
-					end
-					end
-			end
-		end
-	end
-	end
-	return bestpc
+    table.sort(pcs, function(a, b) return a.magnitude < b.magnitude end)
+    return pcs
 end
+
 
 
 spawn(function() -- reload esp when new map
@@ -966,7 +962,7 @@ local beast = getBeast()
 			    end)
 			end
 
-			local bestpc = getBestPC()
+			local bestpc = getBestPC()[0]
 
 			local map = game.ReplicatedStorage.CurrentMap.Value
 			local mapstuff = map:getChildren()
