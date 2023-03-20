@@ -1,4 +1,4 @@
-local ver = "v0.1.9" -- loadstring(game:HttpGet("https://raw.githubusercontent.com/LeviTheOtaku/roblox-scripts/main/FTFHAX.lua",true))()
+local ver = "v0.2.0" -- loadstring(game:HttpGet("https://raw.githubusercontent.com/LeviTheOtaku/roblox-scripts/main/FTFHAX.lua",true))()
 
 local FTFHAX = Instance.new("ScreenGui")
 local MenusTabFrame = Instance.new("Frame")
@@ -956,6 +956,9 @@ avoid = 10.0
 }
 }
 
+
+
+for i, pc in ipairs(pcs) do
 if isPlayerTyping() then
 break
 end
@@ -964,9 +967,7 @@ if game.Players.LocalPlayer.Character.HumanoidRootPart.Position - beast.Characte
 print("RUN")
 break
 end
-
-for i, pc in ipairs(pcs) do
-
+				
 goal = pc.pc["ComputerTrigger1"].Position
 local goalpc = pc.pc
 local path = PathfindingService:CreatePath(agentParams)
