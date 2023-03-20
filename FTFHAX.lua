@@ -757,7 +757,7 @@ function reloadESP()
 					spawn(function()
 						repeat 
 							if bestpctoggle and mapstuff[i]:findFirstChild("Screen") then
-								if mapstuff[i] == getBestPC()[0] then
+								if mapstuff[i] == getBestPC()[1].pc then
 									a.FillColor = mapstuff[i]:findFirstChild("Screen").Color
 									a.OutlineColor = Color3.fromRGB(200, 0, 255)
 								else
@@ -929,7 +929,7 @@ local beast = getBeast()
 			    end)
 			end
 
-			local bestpc = getBestPC()[0]
+			local bestpc = getBestPC()[1].pc
 
 			local map = game.ReplicatedStorage.CurrentMap.Value
 			local mapstuff = map:getChildren()
