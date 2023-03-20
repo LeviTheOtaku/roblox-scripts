@@ -1,4 +1,4 @@
-local ver = "v0.1.8" -- loadstring(game:HttpGet("https://raw.githubusercontent.com/LeviTheOtaku/roblox-scripts/main/FTFHAX.lua",true))()
+local ver = "v0.1.9" -- loadstring(game:HttpGet("https://raw.githubusercontent.com/LeviTheOtaku/roblox-scripts/main/FTFHAX.lua",true))()
 
 local FTFHAX = Instance.new("ScreenGui")
 local MenusTabFrame = Instance.new("Frame")
@@ -956,7 +956,14 @@ avoid = 10.0
 }
 }
 
-
+if isPlayerTyping() then
+break
+end
+				
+if game.Players.LocalPlayer.Character.HumanoidRootPart.Position - beast.Character:findFirstChild("HumanoidRootPart").Position).magnitude > 100 then
+print("RUN")
+break
+end
 
 for i, pc in ipairs(pcs) do
 
