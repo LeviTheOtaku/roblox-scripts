@@ -909,33 +909,6 @@ spawn(function() -- auto play (buggy and still testing :))
 
 
 local beast = getBeast()
-			if not getBeast().Character.HumanoidRootPart:findFirstChild("avoid") then
-			local a = Instance.new("Part", getBeast().Character.HumanoidRootPart)
-			a.Shape = Enum.PartType.Ball
-			a.Position = getBeast().Character.HumanoidRootPart.Position
-			a.Massless = true
-			a.BrickColor = BrickColor.new("Really red")
-			a.Material = Enum.Material.Neon
-			a.Size = Vector3.new(250,250,250)
-			a.Anchored = false
-			a.CanCollide = false
-			a.Transparency = 1
-			a.Name = "avoid"
-
-			local b = Instance.new("Weld", a)
-			b.Part0 = a
-			b.Part1 = getBeast().Character.HumanoidRootPart
-
-			local c = Instance.new("PathfindingModifier", a)
-			c.PassThrough = false
-			c.Label = "avoid"
-			
-			spawn(function()
-			    repeat wait(1) until getBeast().Name ~= a.Parent.Parent.Name
-			    a:remove()
-			    end)
-			end
-
 			local bestpc = getBestPC()[1].pc
 
 			local map = game.ReplicatedStorage.CurrentMap.Value
@@ -944,7 +917,7 @@ local beast = getBeast()
 				if mapstuff[i].Name == "SingleDoor" or mapstuff[i].Name == "DoubleDoor" then
 					local doorParts = mapstuff[i]:getDescendants()
 					for i=1,#doorParts do
-						if doorParts[i].ClassName == "Part" then
+						if doorParts[i].ClassName == "Part" and doorParts[i].Name ~= "Frame" then
 							if not doorParts[i]:findFirstChild("PathfindingModifier") then
 								local a = Instance.new("PathfindingModifier", doorParts[i])
 								a.PassThrough = true
