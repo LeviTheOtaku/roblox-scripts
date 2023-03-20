@@ -975,6 +975,11 @@ if not doorParts[i]:findFirstChild("PathfindingModifier") then
 local a = Instance.new("PathfindingModifier", doorParts[i])
 a.PassThrough = true
 end
+if doorParts[i].Name == "Frame" then
+local a = Instance.new("PathfindingModifier", doorParts[i])
+a.PassThrough = false
+a.Label = "avoid"
+end
 end
 end
 end
@@ -987,7 +992,7 @@ local Humanoid = game.Players.LocalPlayer.Character:WaitForChild("Humanoid")
 local Root = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
 local goal = nil
 local agentParams = {
-AgentRadius = 2,
+AgentRadius = 2.4,
 AgentHeight = 2,
 AgentCanJump = true,
 AgentWalkableClimb = 4,
