@@ -1,4 +1,4 @@
-local ver = "v0.1.6" -- loadstring(game:HttpGet("https://raw.githubusercontent.com/LeviTheOtaku/roblox-scripts/main/FTFHAX.lua",true))()
+local ver = "v0.1.7" -- loadstring(game:HttpGet("https://raw.githubusercontent.com/LeviTheOtaku/roblox-scripts/main/FTFHAX.lua",true))()
 
 local FTFHAX = Instance.new("ScreenGui")
 local MenusTabFrame = Instance.new("Frame")
@@ -859,7 +859,16 @@ function getBestPC()
     return pcs
 end
 
-
+function isPlayerTyping()
+local hum = game.Players.LocalPlayer.Character:findFirstChildOfClass("Humanoid")
+local anims = hum:GetPlayingAnimationTracks()
+for i=1,#anims do
+if anims[i].Name == "AnimTyping" then
+return true
+end
+end
+return false
+end
 
 spawn(function() -- reload esp when new map
 	game.ReplicatedStorage.CurrentMap.Changed:Connect(function()
