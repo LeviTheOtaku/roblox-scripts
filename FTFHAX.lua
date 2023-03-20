@@ -1,4 +1,4 @@
-local ver = "v0.1.5" -- loadstring(game:HttpGet("https://raw.githubusercontent.com/LeviTheOtaku/roblox-scripts/main/FTFHAX.lua",true))()
+local ver = "v0.1.6" -- loadstring(game:HttpGet("https://raw.githubusercontent.com/LeviTheOtaku/roblox-scripts/main/FTFHAX.lua",true))()
 
 local FTFHAX = Instance.new("ScreenGui")
 local MenusTabFrame = Instance.new("Frame")
@@ -867,7 +867,15 @@ spawn(function() -- reload esp when new map
 	end)
 end)
 
-spawn(function() -- reload esp every 5 seconds
+spawn(function() -- reload esp when game becomes active
+	game.ReplicatedStorage.IsGameActive.Changed:Connect(function()
+		reloadESP()
+	end)
+end)
+
+
+
+spawn(function() -- reload esp every 2.5 seconds
 	while wait(2.5) do
 		reloadESP()			
 	end
@@ -896,7 +904,6 @@ end)
 
 spawn(function() -- auto play (buggy and still testing :))
 	while wait(3) do
-			pcall(function()
 		if autoplaytoggle then	
 			
 
@@ -1029,12 +1036,6 @@ local beast = getBeast()
 					break
 				end
 			end
-			
-
-
-			
-
 		end
-	   end)
 	end
 end)
