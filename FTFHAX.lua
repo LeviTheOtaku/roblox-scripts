@@ -855,7 +855,7 @@ function getBestPC()
         end
     end
 
-    table.sort(pcs, function(a, b) return a.magnitude < b.magnitude end)
+    table.sort(pcs, function(a, b) return a.magnitude > b.magnitude end)
     return pcs
 end
 
