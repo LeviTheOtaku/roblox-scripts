@@ -917,52 +917,6 @@ spawn(function() -- auto play (buggy and still testing :))
 			
 
 
-function getBeast()
-local player = game.Players:GetChildren()
-for i=1, #player do
-local character = player[i].Character
-if player[i]:findFirstChild("TempPlayerStatsModule"):findFirstChild("IsBeast").Value == true or (character ~= nil and character:findFirstChild("BeastPowers")) then
-return player[i]
-end
-end
-end
-
-function getBestPC()
-local beast = getBeast()
-local pcs = {}
-
-local map = game.ReplicatedStorage.CurrentMap.Value
-if map ~= nil then
-local mapstuff = map:getChildren()
-for i=1,#mapstuff do
-if mapstuff[i].Name == "ComputerTable" then
-if mapstuff[i].Screen.BrickColor ~= BrickColor.new("Dark green") then
-local magnitude = ((mapstuff[i].Screen.Position - beast.Character:findFirstChild("HumanoidRootPart").Position).magnitude)
-table.insert(pcs, {magnitude=magnitude, pc=mapstuff[i]})
-end
-end
-end
-end
-
-table.sort(pcs, function(a, b) return a.magnitude > b.magnitude end)
-return pcs
-end
-
-function isPlayerTyping()
-local hum = game.Players.LocalPlayer.Character:findFirstChildOfClass("Humanoid")
-local anims = hum:GetPlayingAnimationTracks()
-for i=1,#anims do
-if anims[i].Name == "AnimTyping" then
-return true
-end
-end
-return false
-end
-
-
-
--- SCRIPT PART
-
 local beast = getBeast()
 local map = game.ReplicatedStorage.CurrentMap.Value
 local mapstuff = map:getChildren()
