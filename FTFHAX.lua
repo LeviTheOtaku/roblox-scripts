@@ -1018,6 +1018,10 @@ local beast = getBeast()
 					break
 				end
 			end
+				
+				
+				
+				
 		end
 	end
 end)
