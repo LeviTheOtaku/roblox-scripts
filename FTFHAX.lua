@@ -917,8 +917,53 @@ spawn(function() -- auto play (buggy and still testing :))
 			
 
 
+function getBeast()
+local player = game.Players:GetChildren()
+for i=1, #player do
+local character = player[i].Character
+if player[i]:findFirstChild("TempPlayerStatsModule"):findFirstChild("IsBeast").Value == true or (character ~= nil and character:findFirstChild("BeastPowers")) then
+return player[i]
+end
+end
+end
+
+function getBestPC()
 local beast = getBeast()
-local bestpc = getBestPC()[1].pc
+local pcs = {}
+
+local map = game.ReplicatedStorage.CurrentMap.Value
+if map ~= nil then
+local mapstuff = map:getChildren()
+for i=1,#mapstuff do
+if mapstuff[i].Name == "ComputerTable" then
+if mapstuff[i].Screen.BrickColor ~= BrickColor.new("Dark green") then
+local magnitude = ((mapstuff[i].Screen.Position - beast.Character:findFirstChild("HumanoidRootPart").Position).magnitude)
+table.insert(pcs, {magnitude=magnitude, pc=mapstuff[i]})
+end
+end
+end
+end
+
+table.sort(pcs, function(a, b) return a.magnitude > b.magnitude end)
+return pcs
+end
+
+function isPlayerTyping()
+local hum = game.Players.LocalPlayer.Character:findFirstChildOfClass("Humanoid")
+local anims = hum:GetPlayingAnimationTracks()
+for i=1,#anims do
+if anims[i].Name == "AnimTyping" then
+return true
+end
+end
+return false
+end
+
+
+
+-- SCRIPT PART
+
+local beast = getBeast()
 local map = game.ReplicatedStorage.CurrentMap.Value
 local mapstuff = map:getChildren()
 for i=1,#mapstuff do
@@ -947,16 +992,17 @@ AgentHeight = 2,
 AgentCanJump = true,
 AgentWalkableClimb = 4,
 WaypointSpacing = 2,
-    Costs = {
-        avoid = 10.0
-    }
+Costs = {
+avoid = 10.0
+}
 }
 
 
 
 for i, pc in ipairs(pcs) do
-goal = pc.pc["ComputerTrigger1"].Position
 
+goal = pc.pc["ComputerTrigger1"].Position
+local goalpc = pc.pc
 local path = PathfindingService:CreatePath(agentParams)
 
 path:ComputeAsync(Root.Position, goal)
@@ -978,13 +1024,13 @@ Humanoid:MoveTo(waypoint.Position)
 if waypoint.Action == Enum.PathWaypointAction.Jump then
 Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
 end
-    
+
 local a = Instance.new("Part", workspace)
 a.Shape = Enum.PartType.Ball
 a.Position = waypoint.Position
 a.BrickColor = BrickColor.new("Pink")
 a.Material = Enum.Material.Neon
-a.Size = Vector3.new(3,3,3)
+a.Size = Vector3.new(2,2,2)
 a.Anchored = true
 a.CanCollide = false
 local touch = false
@@ -1008,7 +1054,7 @@ end
 break
 end
 end
-				
+
 				
 				
 				
