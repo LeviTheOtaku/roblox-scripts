@@ -1,4 +1,4 @@
-local ver = "v0.2.9" -- loadstring(game:HttpGet("https://raw.githubusercontent.com/LeviTheOtaku/roblox-scripts/main/FTFHAX.lua",true))()
+local ver = "v0.3.0" -- loadstring(game:HttpGet("https://raw.githubusercontent.com/LeviTheOtaku/roblox-scripts/main/FTFHAX.lua",true))()
 
 local FTFHAX = Instance.new("ScreenGui")
 local MenusTabFrame = Instance.new("Frame")
@@ -865,7 +865,7 @@ end
 
 function reloadBeastCam()
 ViewportFrame:ClearAllChildren()
-if beastcamtoggle then
+if beastcamtoggle and game.ReplicatedStorage.CurrentMap.Value ~= nil then
 local beast = getBeast()
 local cam = Instance.new("Camera", ScreenGui)
 cam.CameraType = Enum.CameraType.Scriptable
