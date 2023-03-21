@@ -916,7 +916,6 @@ spawn(function() -- auto play (buggy and still testing :))
 		if autoplaytoggle then	
 			
 
-
 local beast = getBeast()
 local map = game.ReplicatedStorage.CurrentMap.Value
 local mapstuff = map:getChildren()
