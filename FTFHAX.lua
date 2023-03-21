@@ -1,4 +1,4 @@
-local ver = "v0.2.2" -- loadstring(game:HttpGet("https://raw.githubusercontent.com/LeviTheOtaku/roblox-scripts/main/FTFHAX.lua",true))()
+local ver = "v0.2.3" -- loadstring(game:HttpGet("https://raw.githubusercontent.com/LeviTheOtaku/roblox-scripts/main/FTFHAX.lua",true))()
 
 local FTFHAX = Instance.new("ScreenGui")
 local MenusTabFrame = Instance.new("Frame")
@@ -41,11 +41,13 @@ local UIGridLayout_3 = Instance.new("UIGridLayout")
 local NeverFailButton = Instance.new("TextButton")
 local AutoPlayButton = Instance.new("TextButton")
 local AutoInteractButton = Instance.new("TextButton")
+local BeastCamButton = Instance.new("TextButton")
 local TopBar_3 = Instance.new("Frame")
 local CloseButton_3 = Instance.new("TextButton")
 local BackButton_2 = Instance.new("TextButton")
 local CreditTotalText_3 = Instance.new("TextLabel")
 local PageTitleText_3 = Instance.new("TextLabel")
+local ViewportFrame = Instance.new("ViewportFrame")
 
 FTFHAX.Name = "FTFHAX"
 FTFHAX.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
@@ -513,6 +515,19 @@ AutoInteractButton.TextScaled = true
 AutoInteractButton.TextSize = 14.000
 AutoInteractButton.TextWrapped = true
 
+BeastCamButton.Name = "BeastCamButton"
+BeastCamButton.Parent = ButtonsFrame_2
+BeastCamButton.BackgroundColor3 = Color3.fromRGB(191, 0, 0)
+BeastCamButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+BeastCamButton.BorderSizePixel = 0
+BeastCamButton.LayoutOrder = 3
+BeastCamButton.Size = UDim2.new(0, 200, 0, 50)
+BeastCamButton.Text = "Beast Cam"
+BeastCamButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+BeastCamButton.TextScaled = true
+BeastCamButton.TextSize = 14.000
+BeastCamButton.TextWrapped = true
+
 TopBar_3.Name = "TopBar"
 TopBar_3.Parent = ToolsMenuWindow
 TopBar_3.BackgroundColor3 = Color3.fromRGB(31, 31, 31)
@@ -584,6 +599,16 @@ PageTitleText_3.TextSize = 34.000
 PageTitleText_3.TextWrapped = true
 PageTitleText_3.TextXAlignment = Enum.TextXAlignment.Left
 
+ViewportFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+ViewportFrame.Parent = ScreenGui
+ViewportFrame.Position = UDim2.new(0, 5, 0.666000009, -5)
+ViewportFrame.Size = UDim2.new(0.333, 0, 0.333, 0)
+ViewportFrame.Ambient = Color3.fromRGB(147,147,147)
+ViewportFrame.LightDirection = Vector3.new(0,1,0)
+ViewportFrame.BackgroundColor3 = Color3.fromRGB(50,50,50)
+ViewportFrame.BackgroundTransparency = 0.9
+ViewportFrame.Visible = false
+
 
 CheatButton.MouseButton1Down:Connect(function()
 	ESPMenuWindow.Visible = false
@@ -633,6 +658,7 @@ local pctoggle = false
 local playertoggle = false
 local bestpctoggle = false
 local exitstoggle = false
+local beastcamtoggle = false
 
 
 local neverfailtoggle = false
@@ -706,11 +732,9 @@ NeverFailButton.MouseButton1Down:Connect(function()
 	if neverfailtoggle == false then
 		neverfailtoggle = true
 		NeverFailButton.BackgroundColor3 = Color3.new(0, 0.74902, 0)
-		reloadESP()
 	else
 		neverfailtoggle = false
 		NeverFailButton.BackgroundColor3 = Color3.new(0.74902, 0, 0)
-		reloadESP()
 	end
 end)
 
@@ -718,24 +742,34 @@ AutoInteractButton.MouseButton1Down:Connect(function()
 	if autointeracttoggle == false then
 		autointeracttoggle = true
 		AutoInteractButton.BackgroundColor3 = Color3.new(0, 0.74902, 0)
-		reloadESP()
 	else
 		autointeracttoggle = false
 		AutoInteractButton.BackgroundColor3 = Color3.new(0.74902, 0, 0)
-		reloadESP()
 	end
 end)
+
+
+BeastCamButton.MouseButton1Down:Connect(function()
+	if autointeracttoggle == false then
+		beastcamtoggle = true
+		ViewportFrame.Visible = true
+		AutoInteractButton.BackgroundColor3 = Color3.new(0, 0.74902, 0)
+	else
+		beastcamtoggle = false
+		ViewportFrame.Visible = false
+		AutoInteractButton.BackgroundColor3 = Color3.new(0.74902, 0, 0)
+	end
+end)
+
 
 
 AutoPlayButton.MouseButton1Down:Connect(function()
 	if autoplaytoggle == false then
 		autoplaytoggle = true
 		AutoPlayButton.BackgroundColor3 = Color3.new(0, 0.74902, 0)
-		reloadESP()
 	else
 		autoplaytoggle = false
 		AutoPlayButton.BackgroundColor3 = Color3.new(0.74902, 0, 0)
-		reloadESP()
 	end
 end)
 
@@ -827,6 +861,76 @@ function reloadESP()
 	end
 end
 
+function reloadBeastCam()
+ViewportFrame:ClearAllChildren()
+	
+local beast = getBeast()
+local cam = Instance.new("Camera", ScreenGui)
+cam.CameraType = Enum.CameraType.Scriptable
+cam.FieldOfView = 70
+local map = game.ReplicatedStorage.CurrentMap.Value
+local mapclone = map:clone()
+mapclone.Name = "map"
+local mcstuff = mapclone:getDescendants()
+for i=1,#mcstuff do
+if mcstuff[i].Name == "SingleDoor" or mcstuff[i].Name == "DoubleDoor" or mcstuff[i].ClassName == "Sound" then
+mcstuff[i]:remove() 
+end
+end
+
+
+mapclone.Parent = ViewportFrame
+ViewportFrame.CurrentCamera = cam
+	
+spawn(function()
+repeat
+cam.CFrame = getBeast().Character.Head.CFrame
+for i, v in pairs(ViewportFrame:getDescendants()) do
+	if v:IsA("Sound") then
+	 v:remove()
+	end
+end
+wait()
+until cam == nil or mapclone == nil or beast ~= getBeast()
+end)
+	
+spawn(function()
+local dummy = Instance.new("Folder", ViewportFrame)
+dummy.Name = "dummy"
+dummy.Parent = ViewportFrame
+local doors = Instance.new("Folder", ViewportFrame)
+doors.Name = "doors"
+doors.Parent = ViewportFrame
+
+repeat
+local doorsstuff = map:GetChildren()
+for i=1,#doorsstuff do
+if doorsstuff[i].Name == "SingleDoor" or doorsstuff[i].Name == "DoubleDoor" then
+local a = doorsstuff[i]:clone()
+a.Parent = doors
+end
+end
+
+	local players = game.Players:getChildren()
+	for i=1,#players do
+	if players[i] ~= getBeast() then
+	players[i].Character.Archivable = true
+	local dummyclone = players[i].Character:clone()
+	local bodyparts = dummyclone:getDescendants()
+	dummyclone.Parent = dummy
+	end
+end
+
+
+	wait(0.3)
+
+	dummy:ClearAllChildren()
+	doors:ClearAllChildren()
+until cam == nil or mapclone == nil or beast ~= getBeast()		
+end)
+
+end
+
 
 function getBeast()
 	local player = game.Players:GetChildren()
@@ -873,12 +977,18 @@ end
 spawn(function() -- reload esp when new map
 	game.ReplicatedStorage.CurrentMap.Changed:Connect(function()
 		reloadESP()
+		if beastcamtoggle then
+		reloadBeastCam()	
+		end
 	end)
 end)
 
 spawn(function() -- reload esp when game becomes active
 	game.ReplicatedStorage.IsGameActive.Changed:Connect(function()
 		reloadESP()
+		if beastcamtoggle then
+		reloadBeastCam()	
+		end
 	end)
 end)
 
