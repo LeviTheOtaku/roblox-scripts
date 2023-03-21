@@ -957,15 +957,16 @@ avoid = 10.0
 }
 
 
-local beastNearby = ((game.Players.LocalPlayer.Character.HumanoidRootPart.Position - beast.Character:findFirstChild("HumanoidRootPart").Position).magnitude > 100)
+local beastNearby = ((game.Players.LocalPlayer.Character.HumanoidRootPart.Position - beast.Character:findFirstChild("HumanoidRootPart").Position).magnitude > 50)
 for i, pc in ipairs(pcs) do
+if beastNearby then
+print("beast nearby")
+end
+
 if isPlayerTyping() and not beastNearby then
 break
 end
 				
-if beastNearby then
-print("beast nearby")
-end
 				
 goal = pc.pc["ComputerTrigger1"].Position
 local goalpc = pc.pc
