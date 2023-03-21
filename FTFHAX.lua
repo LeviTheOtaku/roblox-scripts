@@ -750,7 +750,7 @@ end)
 
 
 BeastCamButton.MouseButton1Down:Connect(function()
-	if autointeracttoggle == false then
+	if beastcamtoggle == false then
 		beastcamtoggle = true
 		ViewportFrame.Visible = true
 		BeastCamButton.BackgroundColor3 = Color3.new(0, 0.74902, 0)
@@ -923,11 +923,13 @@ end
 	local players = game.Players:getChildren()
 	for i=1,#players do
 	if players[i] ~= getBeast() then
+	if players[i].Character ~= nil then
 	players[i].Character.Archivable = true
 	local dummyclone = players[i].Character:clone()
 	local bodyparts = dummyclone:getDescendants()
 	dummyclone.Parent = dummy
 	end
+end
 end
 
 
