@@ -1,4 +1,4 @@
-local ver = "v0.2.6" -- loadstring(game:HttpGet("https://raw.githubusercontent.com/LeviTheOtaku/roblox-scripts/main/FTFHAX.lua",true))()
+local ver = "v0.2.7" -- loadstring(game:HttpGet("https://raw.githubusercontent.com/LeviTheOtaku/roblox-scripts/main/FTFHAX.lua",true))()
 
 local FTFHAX = Instance.new("ScreenGui")
 local MenusTabFrame = Instance.new("Frame")
@@ -755,6 +755,7 @@ BeastCamButton.MouseButton1Down:Connect(function()
 		ViewportFrame.Visible = true
 		BeastCamButton.BackgroundColor3 = Color3.new(0, 0.74902, 0)
 	else
+		ViewportFrame:ClearAllChildren()
 		beastcamtoggle = false
 		ViewportFrame.Visible = false
 		BeastCamButton.BackgroundColor3 = Color3.new(0.74902, 0, 0)
@@ -888,21 +889,18 @@ if not beastcamtoggle then
 break
 end
 cam.CFrame = getBeast().Character.Head.CFrame
+			
 for i, v in pairs(ViewportFrame:getDescendants()) do
 	if v:IsA("Sound") then
 	 v:remove()
 	end
 end
+					
 wait()
 until cam == nil or mapclone == nil or beast ~= getBeast()
-ViewportFrame:ClearAllChildren()
 end)
 	
 spawn(function()
-repeat
-if not beastcamtoggle then
-break
-end
 local dummy = Instance.new("Folder", ViewportFrame)
 dummy.Name = "dummy"
 dummy.Parent = ViewportFrame
@@ -911,6 +909,9 @@ doors.Name = "doors"
 doors.Parent = ViewportFrame
 
 repeat
+if not beastcamtoggle then
+break
+end
 local doorsstuff = map:GetChildren()
 for i=1,#doorsstuff do
 if doorsstuff[i].Name == "SingleDoor" or doorsstuff[i].Name == "DoubleDoor" then
@@ -934,8 +935,7 @@ end
 
 	dummy:ClearAllChildren()
 	doors:ClearAllChildren()
-until cam == nil or mapclone == nil or beast ~= getBeast()	
-ViewportFrame:ClearAllChildren()	
+until cam == nil or mapclone == nil or beast ~= getBeast()
 end)
 end
 end
