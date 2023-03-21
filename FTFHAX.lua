@@ -1,4 +1,4 @@
-local ver = "v0.2.5" -- loadstring(game:HttpGet("https://raw.githubusercontent.com/LeviTheOtaku/roblox-scripts/main/FTFHAX.lua",true))()
+local ver = "v0.2.6" -- loadstring(game:HttpGet("https://raw.githubusercontent.com/LeviTheOtaku/roblox-scripts/main/FTFHAX.lua",true))()
 
 local FTFHAX = Instance.new("ScreenGui")
 local MenusTabFrame = Instance.new("Frame")
@@ -863,7 +863,7 @@ end
 
 function reloadBeastCam()
 ViewportFrame:ClearAllChildren()
-	
+if beastcamtoggle then
 local beast = getBeast()
 local cam = Instance.new("Camera", ScreenGui)
 cam.CameraType = Enum.CameraType.Scriptable
@@ -884,6 +884,9 @@ ViewportFrame.CurrentCamera = cam
 	
 spawn(function()
 repeat
+if not beastcamtoggle then
+break
+end
 cam.CFrame = getBeast().Character.Head.CFrame
 for i, v in pairs(ViewportFrame:getDescendants()) do
 	if v:IsA("Sound") then
@@ -892,9 +895,14 @@ for i, v in pairs(ViewportFrame:getDescendants()) do
 end
 wait()
 until cam == nil or mapclone == nil or beast ~= getBeast()
+ViewportFrame:ClearAllChildren()
 end)
 	
 spawn(function()
+repeat
+if not beastcamtoggle then
+break
+end
 local dummy = Instance.new("Folder", ViewportFrame)
 dummy.Name = "dummy"
 dummy.Parent = ViewportFrame
@@ -926,9 +934,10 @@ end
 
 	dummy:ClearAllChildren()
 	doors:ClearAllChildren()
-until cam == nil or mapclone == nil or beast ~= getBeast()		
+until cam == nil or mapclone == nil or beast ~= getBeast()	
+ViewportFrame:ClearAllChildren()	
 end)
-
+end
 end
 
 
