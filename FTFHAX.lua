@@ -1,4 +1,4 @@
-local ver = "v0.2.7" -- loadstring(game:HttpGet("https://raw.githubusercontent.com/LeviTheOtaku/roblox-scripts/main/FTFHAX.lua",true))()
+local ver = "v0.2.8" -- loadstring(game:HttpGet("https://raw.githubusercontent.com/LeviTheOtaku/roblox-scripts/main/FTFHAX.lua",true))()
 
 local FTFHAX = Instance.new("ScreenGui")
 local MenusTabFrame = Instance.new("Frame")
@@ -754,6 +754,7 @@ BeastCamButton.MouseButton1Down:Connect(function()
 		beastcamtoggle = true
 		ViewportFrame.Visible = true
 		BeastCamButton.BackgroundColor3 = Color3.new(0, 0.74902, 0)
+		reloadBeastCam()
 	else
 		ViewportFrame:ClearAllChildren()
 		beastcamtoggle = false
