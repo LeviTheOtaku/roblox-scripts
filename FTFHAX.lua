@@ -1,4 +1,4 @@
-local ver = "v0.2.1" -- loadstring(game:HttpGet("https://raw.githubusercontent.com/LeviTheOtaku/roblox-scripts/main/FTFHAX.lua",true))()
+local ver = "v0.2.2" -- loadstring(game:HttpGet("https://raw.githubusercontent.com/LeviTheOtaku/roblox-scripts/main/FTFHAX.lua",true))()
 
 local FTFHAX = Instance.new("ScreenGui")
 local MenusTabFrame = Instance.new("Frame")
@@ -957,11 +957,12 @@ avoid = 10.0
 }
 
 
-local beastNearby = ((game.Players.LocalPlayer.Character.HumanoidRootPart.Position - beast.Character:findFirstChild("HumanoidRootPart").Position).magnitude > 50)
+local beastNearby = ((game.Players.LocalPlayer.Character.HumanoidRootPart.Position - beast.Character:findFirstChild("HumanoidRootPart").Position).magnitude < 50)
 for i, pc in ipairs(pcs) do
 if beastNearby then
 print("beast nearby")
 end
+
 
 if isPlayerTyping() and not beastNearby then
 break
@@ -1021,7 +1022,6 @@ end
 break
 end
 end
-
 				
 				
 				
