@@ -1,4 +1,4 @@
-local ver = "v0.2.4" -- loadstring(game:HttpGet("https://raw.githubusercontent.com/LeviTheOtaku/roblox-scripts/main/FTFHAX.lua",true))()
+local ver = "v0.2.5" -- loadstring(game:HttpGet("https://raw.githubusercontent.com/LeviTheOtaku/roblox-scripts/main/FTFHAX.lua",true))()
 
 local FTFHAX = Instance.new("ScreenGui")
 local MenusTabFrame = Instance.new("Frame")
@@ -600,7 +600,7 @@ PageTitleText_3.TextWrapped = true
 PageTitleText_3.TextXAlignment = Enum.TextXAlignment.Left
 
 ViewportFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-ViewportFrame.Parent = ScreenGui
+ViewportFrame.Parent = FTFHAX
 ViewportFrame.Position = UDim2.new(0, 5, 0.666000009, -5)
 ViewportFrame.Size = UDim2.new(0.333, 0, 0.333, 0)
 ViewportFrame.Ambient = Color3.fromRGB(147,147,147)
