@@ -889,6 +889,9 @@ repeat
 if not beastcamtoggle then
 break
 end
+repeat
+wait(0.1)
+until getBeast().Character ~= nil
 cam.CFrame = getBeast().Character.Head.CFrame
 			
 for i, v in pairs(ViewportFrame:getDescendants()) do
