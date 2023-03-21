@@ -1,4 +1,4 @@
-local ver = "v0.2.3" -- loadstring(game:HttpGet("https://raw.githubusercontent.com/LeviTheOtaku/roblox-scripts/main/FTFHAX.lua",true))()
+local ver = "v0.2.4" -- loadstring(game:HttpGet("https://raw.githubusercontent.com/LeviTheOtaku/roblox-scripts/main/FTFHAX.lua",true))()
 
 local FTFHAX = Instance.new("ScreenGui")
 local MenusTabFrame = Instance.new("Frame")
@@ -753,11 +753,11 @@ BeastCamButton.MouseButton1Down:Connect(function()
 	if autointeracttoggle == false then
 		beastcamtoggle = true
 		ViewportFrame.Visible = true
-		AutoInteractButton.BackgroundColor3 = Color3.new(0, 0.74902, 0)
+		BeastCamButton.BackgroundColor3 = Color3.new(0, 0.74902, 0)
 	else
 		beastcamtoggle = false
 		ViewportFrame.Visible = false
-		AutoInteractButton.BackgroundColor3 = Color3.new(0.74902, 0, 0)
+		BeastCamButton.BackgroundColor3 = Color3.new(0.74902, 0, 0)
 	end
 end)
 
