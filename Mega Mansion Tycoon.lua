@@ -32,13 +32,29 @@ wait()
 firetouchinterest(part,charparts,1)
 end
 
+
+function collectMoney()
+local mailbox = nil
+local findMailbox = getPlayerTycoon():getDescendants()
+for i=1,#findMailbox do
+if findMailbox[i].Name == "Giver" then
+mailbox = findMailbox[i]
+end
+end
+local character = game:GetService("Players").LocalPlayer.Character or game:GetService("Players").LocalPlayer.CharacterAdded:Wait()
+local charparts = character:FindFirstChildWhichIsA("BasePart")
+firetouchinterest(mailbox,charparts,0)
+wait()
+firetouchinterest(mailbox,charparts,1)
+end
+
 while true do
 wait(0.5)
 if _G.AutoPlay == true then
 if game.Players.LocalPlayer.leaderstats.Cash.Value >= getNextButton().Price.Value then
 touchPart(getNextButton().Head)
 elseif (getPlayerTycoon().CurrencyToCollect.Value + game.Players.LocalPlayer.leaderstats.Cash.Value) >= getNextButton().Price.Value then
-touchPart(getPlayerTycoon().Essentials:WaitForChild("Giver"))
+collectMoney()
 wait()
 touchPart(getNextButton().Head)
 end
