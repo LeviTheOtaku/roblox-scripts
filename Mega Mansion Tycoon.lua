@@ -21,6 +21,15 @@ cheapestbutton = button[i]
 end
 end
 end
+local button2 = workspace:WaitForChild("ClientButtons"):getDescendants()
+for i=1,#button2 do
+if button2[i]:findFirstChild("Head") and button2[i]:findFirstChild("Head").Transparency ~= 1 then
+if button2[i].Price.Value < cheapest then -- doesn't work in penthouse since they dont store price as variable
+cheapest = button2[i].Price.Value
+cheapestbutton = button2[i]
+end
+end
+end
 return cheapestbutton
 end
 
