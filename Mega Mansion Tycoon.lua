@@ -77,6 +77,7 @@ end
 
 while true do
 wait(0.5)
+print(getNextButton().Name .. ", costs: " .. getNextButton().Price.Value)
 if _G.AutoPlay == true then
 if game.Players.LocalPlayer.leaderstats.Cash.Value >= getNextButton().Price.Value then
 touchPart(getNextButton().Head)
