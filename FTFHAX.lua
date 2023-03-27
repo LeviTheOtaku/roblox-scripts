@@ -1,4 +1,4 @@
-local ver = "v0.3.1" -- loadstring(game:HttpGet("https://raw.githubusercontent.com/LeviTheOtaku/roblox-scripts/main/FTFHAX.lua",true))()
+local ver = "v0.3.2" -- loadstring(game:HttpGet("https://raw.githubusercontent.com/LeviTheOtaku/roblox-scripts/main/FTFHAX.lua",true))()
 
 local FTFHAX = Instance.new("ScreenGui")
 local MenusTabFrame = Instance.new("Frame")
@@ -793,7 +793,7 @@ function reloadESP()
 					spawn(function()
 						repeat 
 							if bestpctoggle and mapstuff[i]:findFirstChild("Screen") then
-								if mapstuff[i] == getBestPC()[1].pc then
+								if getBestPC()[1].pc ~= nil and mapstuff[i] == getBestPC()[1].pc then
 									a.FillColor = mapstuff[i]:findFirstChild("Screen").Color
 									a.OutlineColor = Color3.fromRGB(200, 0, 255)
 								else
