@@ -1,5 +1,6 @@
 local v = "0.0.1" -- loadstring(game:HttpGet("https://raw.githubusercontent.com/LeviTheOtaku/roblox-scripts/main/HelloKittyGui.lua",true))()
 
+
 if game.ReplicatedStorage:FindFirstChild("GameAnalytics") then
 	game.ReplicatedStorage:FindFirstChild("GameAnalytics"):remove()
 end
@@ -1600,10 +1601,11 @@ end)
 spawn(function()
 	if game.PlaceId == 9346060856 then
 		local uigamepub = game.Players.LocalPlayer.PlayerGui:WaitForChild("UIGamePublic") -- wait for this
+		local cbi = game.Players.LocalPlayer.PlayerGui:WaitForChild("ColorBlockImages") -- wait for this
 		local function getBestIcon()
 			local iconImage = uigamepub.UIColorBlock.ColorTips.ColorImage.Icon.Image
 			local blocks = {}
-			local allBlocks = game.Players.LocalPlayer.PlayerGui.ColorBlockImages:getChildren()
+			local allBlocks = cbi:getChildren()
 			for i=1,#allBlocks do
 				if allBlocks[i].Frame.ImageLabel1.Image == iconImage then
 					table.insert(blocks, allBlocks[i].Adornee.Parent)
