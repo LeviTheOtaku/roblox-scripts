@@ -1,4 +1,4 @@
-local ver = "v0.3.2" -- loadstring(game:HttpGet("https://raw.githubusercontent.com/LeviTheOtaku/roblox-scripts/main/FTFHAX.lua",true))()
+local ver = "v0.3.3" -- loadstring(game:HttpGet("https://raw.githubusercontent.com/LeviTheOtaku/roblox-scripts/main/FTFHAX.lua",true))()
 
 local FTFHAX = Instance.new("ScreenGui")
 local MenusTabFrame = Instance.new("Frame")
@@ -864,86 +864,80 @@ function reloadESP()
 end
 
 function reloadBeastCam()
-ViewportFrame:ClearAllChildren() -- something makes actions not work :(
---[[if beastcamtoggle and game.ReplicatedStorage.CurrentMap.Value ~= nil then
-local beast = getBeast()
-local cam = Instance.new("Camera", ScreenGui)
-cam.CameraType = Enum.CameraType.Scriptable
-cam.FieldOfView = 70
-local map = game.ReplicatedStorage.CurrentMap.Value
-local mapclone = map:clone()
-mapclone.Name = "map"
-local mcstuff = mapclone:getDescendants()
-for i=1,#mcstuff do
-if mcstuff[i].Name == "SingleDoor" or mcstuff[i].Name == "DoubleDoor" or mcstuff[i].ClassName == "Sound" then
-mcstuff[i]:remove() 
-end
-end
+	ViewportFrame:ClearAllChildren()
+	if beastcamtoggle and game.ReplicatedStorage.CurrentMap.Value ~= nil then
+		local beast = getBeast()
+		local cam = Instance.new("Camera", ScreenGui)
+		cam.CameraType = Enum.CameraType.Scriptable
+		cam.FieldOfView = 70
+		local map = game.ReplicatedStorage.CurrentMap.Value
+		local mapclone = map:clone()
+		mapclone.Name = "map"
+		local mcstuff = mapclone:getDescendants()
+		for i=1,#mcstuff do
+			if mcstuff[i].Name == "SingleDoor" or mcstuff[i].Name == "DoubleDoor" or mcstuff[i].ClassName == "Sound" or mcstuff[i].ClassName == "LocalScript" or mcstuff[i].ClassName == "Script" then
+				mcstuff[i]:remove() 
+			end
+		end
+
+		mapclone.Parent = ViewportFrame
+		ViewportFrame.CurrentCamera = cam
+
+		spawn(function()
+			repeat
+				wait()
+				if not beastcamtoggle then
+					break
+				end
+				repeat
+					wait()
+				until getBeast().Character ~= nil
+				cam.CFrame = getBeast().Character.Head.CFrame
+				wait()
+			until cam == nil or mapclone == nil or beast ~= getBeast()
+		end)
+
+		spawn(function()
+			local dummy = Instance.new("Folder", ViewportFrame)
+			dummy.Name = "dummy"
+			dummy.Parent = ViewportFrame
+			local doors = Instance.new("Folder", ViewportFrame)
+			doors.Name = "doors"
+			doors.Parent = ViewportFrame
+
+			repeat
+				wait()
+				if not beastcamtoggle then
+					break
+				end
+				local doorsstuff = map:GetChildren()
+				for i=1,#doorsstuff do
+					if doorsstuff[i].Name == "SingleDoor" or doorsstuff[i].Name == "DoubleDoor" then
+						local a = doorsstuff[i]:clone()
+						a.Parent = doors
+					end
+				end
+
+				local players = game.Players:getChildren()
+				for i=1,#players do
+					if players[i] ~= getBeast() then
+						if players[i].Character ~= nil then
+							players[i].Character.Archivable = true
+							local dummyclone = players[i].Character:clone()
+							local bodyparts = dummyclone:getDescendants()
+							dummyclone.Parent = dummy
+						end
+					end
+				end
 
 
-mapclone.Parent = ViewportFrame
-ViewportFrame.CurrentCamera = cam
-	
-spawn(function()
-repeat
-if not beastcamtoggle then
-break
-end
-repeat
-wait(0.1)
-until getBeast().Character ~= nil
-cam.CFrame = getBeast().Character.Head.CFrame
-			
-for i, v in pairs(ViewportFrame:getDescendants()) do
-	if v:IsA("Sound") then
-	 v:remove()
+				wait(0.3)
+
+				dummy:ClearAllChildren()
+				doors:ClearAllChildren()
+			until cam == nil or mapclone == nil or beast ~= getBeast()
+		end)
 	end
-end
-					
-wait()
-until cam == nil or mapclone == nil or beast ~= getBeast()
-end)
-	
-spawn(function()
-local dummy = Instance.new("Folder", ViewportFrame)
-dummy.Name = "dummy"
-dummy.Parent = ViewportFrame
-local doors = Instance.new("Folder", ViewportFrame)
-doors.Name = "doors"
-doors.Parent = ViewportFrame
-
-repeat
-if not beastcamtoggle then
-break
-end
-local doorsstuff = map:GetChildren()
-for i=1,#doorsstuff do
-if doorsstuff[i].Name == "SingleDoor" or doorsstuff[i].Name == "DoubleDoor" then
-local a = doorsstuff[i]:clone()
-a.Parent = doors
-end
-end
-
-	local players = game.Players:getChildren()
-	for i=1,#players do
-	if players[i] ~= getBeast() then
-	if players[i].Character ~= nil then
-	players[i].Character.Archivable = true
-	local dummyclone = players[i].Character:clone()
-	local bodyparts = dummyclone:getDescendants()
-	dummyclone.Parent = dummy
-	end
-end
-end
-
-
-	wait(0.3)
-
-	dummy:ClearAllChildren()
-	doors:ClearAllChildren()
-until cam == nil or mapclone == nil or beast ~= getBeast()
-end)
-end]]
 end
 
 
