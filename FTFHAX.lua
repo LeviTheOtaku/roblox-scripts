@@ -1,4 +1,4 @@
-local ver = "v0.3.3" -- loadstring(game:HttpGet("https://raw.githubusercontent.com/LeviTheOtaku/roblox-scripts/main/FTFHAX.lua",true))()
+local ver = "v0.3.4" -- loadstring(game:HttpGet("https://raw.githubusercontent.com/LeviTheOtaku/roblox-scripts/main/FTFHAX.lua",true))()
 
 local FTFHAX = Instance.new("ScreenGui")
 local MenusTabFrame = Instance.new("Frame")
@@ -863,6 +863,7 @@ function reloadESP()
 	end
 end
 
+
 function reloadBeastCam()
 	ViewportFrame:ClearAllChildren()
 	if beastcamtoggle and game.ReplicatedStorage.CurrentMap.Value ~= nil then
@@ -925,7 +926,16 @@ function reloadBeastCam()
 							players[i].Character.Archivable = true
 							local dummyclone = players[i].Character:clone()
 							local bodyparts = dummyclone:getDescendants()
+
+							for i=1,#bodyparts do
+								if bodyparts[i].ClassName == "Sound" or bodyparts[i].ClassName == "LocalScript" or bodyparts[i].ClassName == "Script" then
+									bodyparts[i]:remove() 
+								end
+							end
+							
+							
 							dummyclone.Parent = dummy
+							
 						end
 					end
 				end
@@ -939,7 +949,6 @@ function reloadBeastCam()
 		end)
 	end
 end
-
 
 function getBeast()
 	local player = game.Players:GetChildren()
@@ -1003,10 +1012,15 @@ end)
 
 
 
-spawn(function() -- reload esp every 2.5 seconds
-	while wait(2.5) do
-		reloadESP()			
-	end
+spawn(function() --reload esp when character loads/deloads
+	game:GetService("Players").PlayerAdded:Connect(function(player)
+		player.CharacterAdded:Connect(function(character)
+			reloadESP()
+		end)
+		player.CharacterRemoved:Connect(function(character)
+			reloadESP()
+		end)
+	end)
 end)
 
 spawn(function() -- never fail hacking
