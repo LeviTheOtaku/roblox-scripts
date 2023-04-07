@@ -1,4 +1,4 @@
-local v = "0.0.1" -- loadstring(game:HttpGet("https://raw.githubusercontent.com/LeviTheOtaku/roblox-scripts/main/HelloKittyGui.lua",true))()
+local v = "0.0.2" -- loadstring(game:HttpGet("https://raw.githubusercontent.com/LeviTheOtaku/roblox-scripts/main/HelloKittyGui.lua",true))()
 
 
 if game.ReplicatedStorage:FindFirstChild("GameAnalytics") then
@@ -1480,7 +1480,7 @@ end)
 
 
 ToggleRenderingButton.MouseButton1Down:Connect(function()
-	if norendering == false then
+	if ToggleRenderingButton.ImageColor3 == Color3.fromRGB(255, 255, 255) then
 		ToggleRenderingButton.ImageColor3 = Color3.fromRGB(200, 255, 200)
 		game:GetService("RunService"):Set3dRenderingEnabled(false)
 	else
@@ -1488,7 +1488,6 @@ ToggleRenderingButton.MouseButton1Down:Connect(function()
 		game:GetService("RunService"):Set3dRenderingEnabled(true)
 	end
 end)
-
 
 
 
