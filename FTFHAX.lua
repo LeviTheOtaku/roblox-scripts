@@ -994,6 +994,7 @@ end
 
 spawn(function() -- reload esp when new map
 	game.ReplicatedStorage.CurrentMap.Changed:Connect(function()
+		wait(5) -- hopefully enough time for map to load ;)
 		reloadESP()
 		if beastcamtoggle then
 		reloadBeastCam()	
