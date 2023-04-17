@@ -1,4 +1,4 @@
-local v = "0.0.2" -- loadstring(game:HttpGet("https://raw.githubusercontent.com/LeviTheOtaku/roblox-scripts/main/HelloKittyGui.lua",true))()
+local v = "0.0.3" -- loadstring(game:HttpGet("https://raw.githubusercontent.com/LeviTheOtaku/roblox-scripts/main/HelloKittyGui.lua",true))()
 
 
 if game.ReplicatedStorage:FindFirstChild("GameAnalytics") then
@@ -42,10 +42,8 @@ local Lock = Instance.new("ImageLabel")
 local Info_2 = Instance.new("TextLabel")
 local Title_3 = Instance.new("TextLabel")
 local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
-local EggsFrame = Instance.new("ImageLabel")
 local Right_3 = Instance.new("Frame")
 local Button_2 = Instance.new("ImageLabel")
-local EggsButton = Instance.new("ImageButton")
 local TextLabel_2 = Instance.new("TextLabel")
 local Info_3 = Instance.new("ImageLabel")
 local FillAll_2 = Instance.new("ImageButton")
@@ -500,23 +498,6 @@ Title_3.TextXAlignment = Enum.TextXAlignment.Left
 UIAspectRatioConstraint.Parent = TreasureFrame
 UIAspectRatioConstraint.AspectRatio = 10.000
 
-EggsFrame.Name = "EggsFrame"
-EggsFrame.Parent = Right
-EggsFrame.Active = true
-EggsFrame.BackgroundColor3 = Color3.fromRGB(208, 249, 249)
-EggsFrame.BorderSizePixel = 0
-EggsFrame.Size = UDim2.new(1, 0, 0.300000012, 0)
-
-Right_3.Name = "Right"
-Right_3.Parent = EggsFrame
-Right_3.AnchorPoint = Vector2.new(0, 1)
-Right_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Right_3.BackgroundTransparency = 1.000
-Right_3.BorderSizePixel = 0
-Right_3.Position = UDim2.new(0.74999994, 0, 0.679825783, 0)
-Right_3.Size = UDim2.new(0.25000003, 0, 0.479825675, 0)
-Right_3.ZIndex = 2
-
 Button_2.Name = "Button"
 Button_2.Parent = Right_3
 Button_2.AnchorPoint = Vector2.new(0.5, 0)
@@ -528,34 +509,6 @@ Button_2.Size = UDim2.new(0.899999976, 0, 0.666999996, 0)
 Button_2.Image = "rbxassetid://8635500001"
 Button_2.ScaleType = Enum.ScaleType.Slice
 Button_2.SliceCenter = Rect.new(80, 60, 102, 60)
-
-EggsButton.Name = "EggsButton"
-EggsButton.Parent = Button_2
-EggsButton.AnchorPoint = Vector2.new(0.5, 0.5)
-EggsButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-EggsButton.BackgroundTransparency = 1.000
-EggsButton.BorderSizePixel = 0
-EggsButton.Position = UDim2.new(0.5, 0, 0.400000006, 0)
-EggsButton.Size = UDim2.new(1, 0, 1, 0)
-EggsButton.Image = "rbxassetid://8635500190"
-EggsButton.ScaleType = Enum.ScaleType.Slice
-EggsButton.SliceCenter = Rect.new(80, 60, 102, 60)
-
-TextLabel_2.Parent = EggsButton
-TextLabel_2.AnchorPoint = Vector2.new(0, 0.5)
-TextLabel_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-TextLabel_2.BackgroundTransparency = 1.000
-TextLabel_2.BorderSizePixel = 0
-TextLabel_2.Position = UDim2.new(0.0611788183, 0, 0.545740366, 0)
-TextLabel_2.Size = UDim2.new(0.892436922, 0, 0.808519542, 0)
-TextLabel_2.Font = Enum.Font.FredokaOne
-TextLabel_2.Text = "Enable"
-TextLabel_2.TextColor3 = Color3.fromRGB(249, 254, 255)
-TextLabel_2.TextScaled = true
-TextLabel_2.TextSize = 16.000
-TextLabel_2.TextStrokeColor3 = Color3.fromRGB(0, 221, 255)
-TextLabel_2.TextStrokeTransparency = 0.000
-TextLabel_2.TextWrapped = true
 
 Info_3.Name = "Info"
 Info_3.Parent = Right_3
@@ -611,25 +564,6 @@ Info_4.TextSize = 16.000
 Info_4.TextStrokeColor3 = Color3.fromRGB(0, 221, 255)
 Info_4.TextStrokeTransparency = 0.000
 Info_4.TextWrapped = true
-
-Title_4.Name = "Title"
-Title_4.Parent = EggsFrame
-Title_4.BackgroundColor3 = Color3.fromRGB(208, 249, 249)
-Title_4.BorderSizePixel = 0
-Title_4.ClipsDescendants = true
-Title_4.Position = UDim2.new(0.0169999469, 0, 0.166244417, 0)
-Title_4.Size = UDim2.new(0.541999996, 0, 0.612096429, 0)
-Title_4.ZIndex = 3
-Title_4.Font = Enum.Font.FredokaOne
-Title_4.Text = "Collect Eggs"
-Title_4.TextColor3 = Color3.fromRGB(255, 116, 168)
-Title_4.TextScaled = true
-Title_4.TextSize = 50.000
-Title_4.TextWrapped = true
-Title_4.TextXAlignment = Enum.TextXAlignment.Left
-
-UIAspectRatioConstraint_2.Parent = EggsFrame
-UIAspectRatioConstraint_2.AspectRatio = 10.000
 
 AutoFeed.Name = "AutoFeed"
 AutoFeed.Parent = Right
@@ -1400,7 +1334,6 @@ tab3.MouseButton1Down:Connect(function()
 end)
 
 local autoGetTreasure = false
-local autoGetEggs = false
 local autoFeedWorkers = false
 local autoKuromi = false
 local autoDessert = false
@@ -1413,16 +1346,6 @@ TreasureButton.MouseButton1Down:Connect(function()
 	else
 		TreasureButton.ImageColor3 = Color3.fromRGB(255, 255, 255)
 		autoGetTreasure = false
-	end
-end)
-
-EggsButton.MouseButton1Down:Connect(function()
-	if autoGetEggs == false then
-		EggsButton.ImageColor3 = Color3.fromRGB(200, 255, 200)
-		autoGetEggs = true
-	else
-		EggsButton.ImageColor3 = Color3.fromRGB(255, 255, 255)
-		autoGetEggs = false
 	end
 end)
 
@@ -1519,24 +1442,6 @@ spawn(function()
 		end
 	end
 end)
-
-
-spawn(function()
-	while true do
-		wait(0.2)
-		if autoGetEggs then
-			local a = workspace.CollectItemEntity:getChildren()
-			for i=1,#a do
-				if a[i]:findFirstChild("Item") then
-					game.Players.LocalPlayer.Character:MoveTo(a[i]:WaitForChild("Item").Position)
-				end
-				wait(0.4)
-				a[i]:remove()
-			end
-		end
-	end
-end)
-
 
 
 spawn(function()
